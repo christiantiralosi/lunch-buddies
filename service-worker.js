@@ -1,6 +1,5 @@
-const CACHE_NAME = 'menu-asilo-v3';
+const CACHE_NAME = 'menu-asilo-v5';
 const urlsToCache = [
-  './menu.html',
   './index.html',
   './manifest.json'
 ];
@@ -88,4 +87,11 @@ self.addEventListener('fetch', (event) => {
         });
       })
   );
+});
+
+// Ascolta messaggi per forzare l'attivazione
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });

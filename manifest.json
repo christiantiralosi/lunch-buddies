@@ -2,7 +2,7 @@
   "name": "Menu Asilo Settimanale",
   "short_name": "Menu Asilo",
   "description": "Consulta il menu settimanale dell'asilo con facilità",
-  "start_url": "./menu.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#FFF9E6",
   "theme_color": "#FF6B35",
