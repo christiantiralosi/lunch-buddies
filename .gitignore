@@ -1,0 +1,22 @@
+# Node modules (se usi strumenti npm)
+node_modules/
+
+# File di sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.tmp
+
+# Log files
+*.log
+npm-debug.log*

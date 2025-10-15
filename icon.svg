@@ -1,0 +1,26 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="115" fill="#FF6B35"/>
+  
+  <!-- Plate -->
+  <circle cx="256" cy="280" r="140" fill="#FFFFFF"/>
+  <circle cx="256" cy="280" r="130" fill="#FFF9E6"/>
+  
+  <!-- Fork -->
+  <g transform="translate(180, 150)">
+    <rect x="18" y="0" width="8" height="180" rx="4" fill="#FFFFFF"/>
+    <rect x="8" y="0" width="8" height="100" rx="4" fill="#FFFFFF"/>
+    <rect x="28" y="0" width="8" height="100" rx="4" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- Knife -->
+  <g transform="translate(300, 150)">
+    <rect x="0" y="0" width="8" height="180" rx="4" fill="#FFFFFF"/>
+    <path d="M 0 0 L 8 0 L 8 40 L 20 50 L 20 60 L 8 70 L 8 80 L 0 80 Z" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- Food emoji style decorations -->
+  <circle cx="240" cy="270" r="15" fill="#FF6B35"/>
+  <circle cx="272" cy="270" r="15" fill="#FFB300"/>
+  <circle cx="256" cy="295" r="15" fill="#4CAF50"/>
+</svg>
