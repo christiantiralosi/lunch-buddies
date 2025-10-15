@@ -783,6 +783,7 @@
         </header>
         
         <div class="controls">
+            <button class="btn btn-primary" id="btn-install" style="display: none;">📲 Installa App</button>
             <button class="btn btn-secondary" id="btn-all-weeks" onclick="toggleAllWeeks()">Tutte le Settimane</button>
         </div>
         
@@ -1416,6 +1417,60 @@
                     }
                 });
             });
+        }
+        
+        // PWA Install Prompt Handler
+        let deferredPrompt;
+        const installButton = document.getElementById('btn-install');
+        
+        // Intercetta l'evento beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Previeni il prompt automatico del browser
+            e.preventDefault();
+            // Salva l'evento per poterlo utilizzare dopo
+            deferredPrompt = e;
+            // Mostra il pulsante di installazione
+            installButton.style.display = 'block';
+            console.log('Prompt di installazione catturato');
+        });
+        
+        // Gestisci il click sul pulsante di installazione
+        installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                console.log('Nessun prompt di installazione disponibile');
+                return;
+            }
+            
+            // Mostra il prompt di installazione
+            deferredPrompt.prompt();
+            
+            // Aspetta la scelta dell'utente
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`Scelta utente: ${outcome}`);
+            
+            if (outcome === 'accepted') {
+                console.log('Utente ha accettato l\'installazione');
+            } else {
+                console.log('Utente ha rifiutato l\'installazione');
+            }
+            
+            // Resetta il prompt
+            deferredPrompt = null;
+            // Nascondi il pulsante
+            installButton.style.display = 'none';
+        });
+        
+        // Nascondi il pulsante se l'app è già installata
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installata con successo!');
+            installButton.style.display = 'none';
+            deferredPrompt = null;
+        });
+        
+        // Controlla se l'app è già in modalità standalone (già installata)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            console.log('App già installata - nascondo pulsante');
+            installButton.style.display = 'none';
         }
     </script>
 </body>
