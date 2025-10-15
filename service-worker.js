@@ -1,13 +1,15 @@
-const CACHE_NAME = 'menu-asilo-v2';
+const CACHE_NAME = 'menu-asilo-v3';
 const urlsToCache = [
   './menu.html',
   './index.html',
-  './manifest.json',
-  './menu-data.txt'
+  './manifest.json'
 ];
 
 // Installazione del Service Worker
 self.addEventListener('install', (event) => {
+  // Forza l'attivazione immediata del nuovo service worker
+  self.skipWaiting();
+  
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
@@ -19,6 +21,7 @@ self.addEventListener('install', (event) => {
 
 // Attivazione del Service Worker
 self.addEventListener('activate', (event) => {
+  // Prendi il controllo immediatamente
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -29,41 +32,59 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
+    }).then(() => {
+      return self.clients.claim();
     })
   );
 });
 
-// Intercettazione delle richieste
+// Intercettazione delle richieste con strategia mista
 self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+  
+  // Network-First per menu-data.txt (sempre aggiornato)
+  if (url.pathname.includes('menu-data.txt')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // Salva in cache la nuova versione
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+          return response;
+        })
+        .catch(() => {
+          // Se offline, usa la cache
+          return caches.match(event.request);
+        })
+    );
+    return;
+  }
+  
+  // Cache-First per tutto il resto (HTML, CSS, JS, immagini)
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Cache hit - restituisce la risposta dalla cache
         if (response) {
           return response;
         }
 
-        // Clona la richiesta
         const fetchRequest = event.request.clone();
 
         return fetch(fetchRequest).then((response) => {
-          // Controlla se la risposta è valida
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
 
-          // Clona la risposta
           const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
 
           return response;
         }).catch(() => {
-          // Se offline e non in cache, restituisce la pagina principale
-          return caches.match('./menu.html');
+          return caches.match('./index.html');
         });
       })
   );
