@@ -820,57 +820,14 @@
         </footer>
     </div>
 
-    <!-- Menu data embedded in HTML for easy local editing -->
-    <script type="text/plain" id="menu-data">
-# Menu Settimanale Asilo
-# 
-# IMPORTANTE: Configurare la data del lunedì della prima settimana
-# nella costante WEEK_1_MONDAY nel codice JavaScript (riga ~830)
-# Formato data: YYYY-MM-DD (es: 2025-10-20)
-#
-# Formato dati: settimana|giorno|primo|secondo|frutta
-# Settimana: 1-4
-# Giorno: 1=Lunedì, 2=Martedì, 3=Mercoledì, 4=Giovedì, 5=Venerdì, 6=Sabato
-
-# Settimana 1
-1|1|Pasta al pomodoro|Pollo alla griglia|Mela
-1|2|Risotto ai funghi|Bistecca di manzo|Pera
-1|3|Minestrone|Pesce al forno|Banana
-1|4|Penne all'arrabbiata|Cotoletta alla milanese|Arancia
-1|5|Gnocchi al pesto|Hamburger di tacchino|Kiwi
-1|6|Gnocchi al ragù|Polpette di melanzane|Fragole
-
-# Settimana 2
-2|1|Pasta al tonno|Salmone al forno|Fragole
-2|2|Risotto alla zucca|Spezzatino|Mandarino
-2|3|Pasta al forno|Polpette al sugo|Mela
-2|4|Zuppa di legumi|Brasato|Pera
-2|5|Pasta al ragù|Frittata di patate|Banana
-2|6|Gnocchi al ragù|Polpette di melanzane|Fragole
-
-# Settimana 3
-3|1|Pasta al pesto|Petto di pollo|Arancia
-3|2|Risotto alla milanese|Salsiccia|Kiwi
-3|3|Pasta al tonno|Merluzzo al limone|Fragole
-3|4|Pasta al sugo|Cotoletta di vitello|Mandarino
-3|5|Zuppa di ceci|Hamburger di manzo|Mela
-3|6|Gnocchi al ragù|Polpette di melanzane|Fragole
-
-# Settimana 4
-4|1|Pasta al forno|Pollo al curry|Pera
-4|2|Risotto ai frutti di mare|Bistecca di maiale|Banana
-4|3|Minestra di verdure|Orata al forno|Arancia
-4|4|Pasta all'amatriciana|Fesa di tacchino|Kiwi
-4|5|Gnocchi al ragù|Polpette di melanzane|Fragole
-4|6|Gnocchi al ragù|Polpette di melanzane|Fragole
-    </script>
+    <!-- Menu data now loaded from external file: menu-data.txt -->
 
     <script>
         // *** CONFIGURAZIONE DATA DI INIZIO ***
         // Specificare qui il lunedì della prima settimana nel formato YYYY-MM-DD
         const WEEK_1_MONDAY = '2025-10-06';
         
-        // Menu data will be loaded from embedded script
+        // Menu data will be loaded from external file
         let MENU = {
             0: {},
             1: {},
@@ -888,18 +845,18 @@
             6: 'Sabato'
         };
 
-        // Load menu from embedded script tag
-        function loadMenuFromFile() {
+        // Load menu from external text file
+        async function loadMenuFromFile() {
             try {
-                const menuDataElement = document.getElementById('menu-data');
-                if (menuDataElement) {
-                    const text = menuDataElement.textContent;
-                    parseMenuFile(text);
-                } else {
-                    loadDefaultMenu();
+                const response = await fetch('menu-data.txt');
+                if (!response.ok) {
+                    throw new Error('Impossibile caricare il file menu-data.txt');
                 }
+                const text = await response.text();
+                parseMenuFile(text);
             } catch (error) {
                 console.error('Errore nel caricamento del menu:', error);
+                console.log('Caricamento menu di default...');
                 loadDefaultMenu();
             }
         }
@@ -1385,8 +1342,8 @@
         }
 
         // Initialize app: load menu and display
-        function initApp() {
-            loadMenuFromFile();
+        async function initApp() {
+            await loadMenuFromFile();
             displayQuickView();
             
             // Display configured date in footer

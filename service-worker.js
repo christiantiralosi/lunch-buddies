@@ -1,7 +1,9 @@
-const CACHE_NAME = 'menu-asilo-v1';
+const CACHE_NAME = 'menu-asilo-v2';
 const urlsToCache = [
   './menu.html',
-  './manifest.json'
+  './index.html',
+  './manifest.json',
+  './menu-data.txt'
 ];
 
 // Installazione del Service Worker

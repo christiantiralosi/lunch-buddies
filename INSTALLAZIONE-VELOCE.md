@@ -83,6 +83,19 @@ Per installarla:
 - 🚀 Si apre a schermo intero
 - 🔄 Aggiornamenti automatici
 
+## 📝 Come Aggiornare il Menu
+
+**Super Facile!** Il menu è ora in un file separato: `menu-data.txt`
+
+1. Vai su GitHub nel tuo repository
+2. Clicca su `menu-data.txt`
+3. Clicca l'icona ✏️ (Edit)
+4. Modifica i piatti
+5. "Commit changes"
+6. **Fatto!** L'app si aggiorna automaticamente
+
+Leggi [COME-MODIFICARE-MENU.md](COME-MODIFICARE-MENU.md) per dettagli.
+
 ## 🆘 Problemi Comuni
 
 **Le icone non appaiono?**

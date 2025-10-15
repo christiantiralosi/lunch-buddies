@@ -8,6 +8,8 @@ La tua applicazione è ora una **Progressive Web App (PWA)**!
 2. **service-worker.js** - Gestione cache e funzionamento offline
 3. **icon.svg** - Icona base dell'app
 4. **menu.html** - Aggiornato con riferimenti PWA
+5. **menu-data.txt** - Dati del menu in file separato (facile da modificare!)
+6. **COME-MODIFICARE-MENU.md** - Guida per modificare il menu
 
 ## 📱 Come Testare
 

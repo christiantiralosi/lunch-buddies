@@ -51,17 +51,26 @@ L'applicazione calcola automaticamente:
 - Settimana del 10/11/2025: Settimana 4
 - Settimana del 17/11/2025: Settimana 1 (il ciclo ricomincia)
 
-## Come Modificare il Menu
+## Come Modificare il Menu ⭐
 
-Il menu è incorporato **direttamente nel file `menu.html`** per permettere l'uso senza server web.
+Il menu è ora in un **file di testo separato** (`menu-data.txt`) facile da modificare!
 
 ### Passi per Modificare:
 
-1. Apri il file `menu.html` con un editor di testo (Notepad, VSCode, ecc.)
-2. Cerca la sezione `<script type="text/plain" id="menu-data">` (circa riga 810)
-3. Modifica le righe del menu seguendo il formato descritto sotto
-4. Salva il file
-5. Apri (o ricarica) `menu.html` nel browser
+**Metodo Rapido (Consigliato):**
+1. Apri il file `menu-data.txt` con un editor di testo
+2. Modifica i piatti seguendo il formato
+3. Salva il file
+4. Se pubblicato su GitHub: commit e push (aggiornamento automatico!)
+
+**Metodo GitHub (Se pubblicato online):**
+1. Vai sul repository GitHub
+2. Clicca su `menu-data.txt`
+3. Clicca l'icona ✏️ (Edit)
+4. Modifica
+5. "Commit changes" → **L'app si aggiorna subito!**
+
+👉 **Leggi [COME-MODIFICARE-MENU.md](COME-MODIFICARE-MENU.md) per guida dettagliata**
 
 ## Formato del Menu
 
