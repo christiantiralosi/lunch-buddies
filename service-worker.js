@@ -1,4 +1,4 @@
-const CACHE_NAME = 'menu-asilo-v7';
+const CACHE_NAME = 'menu-asilo-v8';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -57,22 +57,12 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
-  // Network-First per menu-data.txt (sempre aggiornato)
+  // NESSUNA CACHE per menu-data.txt - SEMPRE dalla rete!
   if (url.pathname.includes('menu-data.txt')) {
     event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          // Salva in cache la nuova versione
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
-          return response;
-        })
-        .catch(() => {
-          // Se offline, usa la cache
-          return caches.match(event.request);
-        })
+      fetch(event.request, {
+        cache: 'no-store'  // Forza nessuna cache del browser
+      })
     );
     return;
   }

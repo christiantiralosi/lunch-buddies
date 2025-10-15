@@ -848,12 +848,22 @@
         // Load menu from external text file
         async function loadMenuFromFile() {
             try {
-                const response = await fetch('menu-data.txt');
+                // Aggiungi timestamp per evitare qualsiasi cache
+                const timestamp = new Date().getTime();
+                const response = await fetch(`menu-data.txt?t=${timestamp}`, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Impossibile caricare il file menu-data.txt');
                 }
                 const text = await response.text();
                 parseMenuFile(text);
+                console.log('Menu caricato con successo (nessuna cache)');
             } catch (error) {
                 console.error('Errore nel caricamento del menu:', error);
                 console.log('Caricamento menu di default...');
