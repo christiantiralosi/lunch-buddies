@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu della Settimana</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Consulta il menu settimanale dell'asilo con facilità">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Menu Asilo">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #FFF9E6 0%, #FFE5E5 100%);
+            color: #333;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header styles */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .week-info {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        /* Control buttons - Top right position */
+        .controls {
+            position: fixed;
+            right: 1rem;
+            top: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .btn {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            border: 3px solid white;
+        }
+
+        @media (hover: hover) {
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);
+            }
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #FF6B35;
+            border: 3px solid #FF6B35;
+        }
+
+        @media (hover: hover) {
+            .btn-secondary:hover {
+                background: #FFE5D9;
+                transform: translateY(-2px);
+            }
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Hidden sections */
+        .hidden {
+            display: none;
+        }
+
+        /* Timeline for all weeks view */
+        .timeline-container {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #e0e0e0;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #999;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item.current .timeline-dot {
+            border-color: #4CAF50;
+            background: white;
+            color: #4CAF50;
+            position: relative;
+        }
+
+        .timeline-item.current .timeline-dot::after {
+            content: '●';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 1.2rem;
+            color: #4CAF50;
+            animation: pulse-current 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-current {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
+
+        .timeline-item.active .timeline-dot {
+            border-color: #FF6B35;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+
+        .timeline-item.current.active .timeline-dot {
+            border-color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        .timeline-label {
+            font-size: 0.75rem;
+            color: #999;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .timeline-item.current .timeline-label {
+            color: #4CAF50;
+            font-weight: 700;
+        }
+
+        .timeline-item.active .timeline-label {
+            color: #FF6B35;
+            font-weight: 700;
+        }
+
+        .timeline-item.current.active .timeline-label {
+            color: #4CAF50;
+        }
+
+        /* Quick view section */
+        #quick-view {
+            margin-bottom: 1.5rem;
+        }
+
+        .quick-view-header {
+            text-align: center;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .quick-view-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .quick-view-header h2::before {
+            content: '📅 ';
+            font-size: 1.3rem;
+        }
+
+        .quick-view-header.week-1 {
+            background: linear-gradient(135deg, #FFFACD 0%, #FFE66D 100%);
+        }
+
+        .quick-view-header.week-1 h2 {
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .quick-view-header.week-2 {
+            background: linear-gradient(135deg, #FFE66D 0%, #FFD93D 100%);
+        }
+
+        .quick-view-header.week-2 h2 {
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .quick-view-header.week-3 {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC926 100%);
+        }
+
+        .quick-view-header.week-3 h2 {
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .quick-view-header.week-4 {
+            background: linear-gradient(135deg, #FFC926 0%, #FFB300 100%);
+        }
+
+        .quick-view-header.week-4 h2 {
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Week section */
+        .week-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid transparent;
+        }
+
+        /* Color coding for weeks - Tonalità diverse di giallo */
+        .week-section.week-1 {
+            background: linear-gradient(135deg, #FFFACD 0%, #FFE66D 100%);
+            box-shadow: 0 4px 8px rgba(255, 250, 205, 0.3);
+        }
+
+        .week-section.week-1 .week-title {
+            color: #2c3e50;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .week-section.week-1 .day-card:not(.today):not(.tomorrow) {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #FFE66D;
+        }
+
+        .week-section.week-2 {
+            background: linear-gradient(135deg, #FFE66D 0%, #FFD93D 100%);
+            box-shadow: 0 4px 8px rgba(255, 230, 109, 0.3);
+        }
+
+        .week-section.week-2 .week-title {
+            color: #2c3e50;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .week-section.week-2 .day-card:not(.today):not(.tomorrow) {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #FFD93D;
+        }
+
+        .week-section.week-3 {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFC926 100%);
+            box-shadow: 0 4px 8px rgba(255, 217, 61, 0.3);
+        }
+
+        .week-section.week-3 .week-title {
+            color: #2c3e50;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .week-section.week-3 .day-card:not(.today):not(.tomorrow) {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #FFC926;
+        }
+
+        .week-section.week-4 {
+            background: linear-gradient(135deg, #FFC926 0%, #FFB300 100%);
+            box-shadow: 0 4px 8px rgba(255, 201, 38, 0.3);
+        }
+
+        .week-section.week-4 .week-title {
+            color: #2c3e50;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .week-section.week-4 .day-card:not(.today):not(.tomorrow) {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #FFB300;
+        }
+
+        /* Current week enhancement */
+        .week-section.current-week {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .week-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+            color: #2c3e50;
+        }
+
+        .current-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            font-weight: 600;
+            border: 2px solid white;
+            box-shadow: 0 3px 6px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Menu grid */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .menu-container.compact {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Day card */
+        .day-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 200px;
+            border: 2px solid #f0f0f0;
+        }
+
+        @media (hover: hover) {
+            .day-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        @media (hover: none) {
+            .day-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        .week-section.current-week .day-card:not(.today):not(.tomorrow) {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .week-section .day-card.today {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+        }
+
+        .week-section .day-card.tomorrow {
+            background-color: #fffbf0 !important;
+        }
+
+        .day-card h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+            text-transform: capitalize;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .day-date {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        
+        .day-card.today .day-date {
+            color: #FF6B35;
+            font-weight: 600;
+        }
+        
+        .day-card.tomorrow .day-date {
+            color: #38A3A5;
+            font-weight: 600;
+        }
+
+        .day-label {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .today-label {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+        }
+
+        .tomorrow-label {
+            background: linear-gradient(135deg, #38A3A5 0%, #57C5B6 100%);
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(56, 163, 165, 0.3);
+        }
+
+        .meal {
+            margin-bottom: 1rem;
+        }
+
+        .meal h3 {
+            color: #FF6B35;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .meal p {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        /* Today's card - Strong emphasis per asilo */
+        .day-card.today {
+            border: 4px solid #FF6B35;
+            background: linear-gradient(135deg, #FFE66D 0%, #FFB4B4 100%);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .day-card.today h2 {
+            color: #FF6B35;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .day-card.tomorrow {
+            border: 3px solid #95E1D3;
+            background: linear-gradient(135deg, #E3FDFD 0%, #CBF1F5 100%);
+            opacity: 1;
+        }
+
+        .day-card.tomorrow h2 {
+            color: #38A3A5;
+            font-weight: 600;
+        }
+
+        .day-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        .today-badge {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            font-size: 1rem;
+            padding: 0.5rem 1.2rem;
+            animation: pulse 2s ease-in-out infinite;
+            border: 2px solid white;
+        }
+
+        .tomorrow-badge {
+            background: linear-gradient(135deg, #38A3A5 0%, #57C5B6 100%);
+            font-size: 0.85rem;
+            border: 2px solid white;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 3px 8px rgba(255, 107, 53, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 15px rgba(255, 107, 53, 0.7);
+                transform: scale(1.05);
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive adjustments */
+        
+        /* Tablets and small desktops */
+        @media (max-width: 1024px) {
+            .menu-container:not(.compact) {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1rem;
+            }
+            
+            .week-section {
+                padding: 1.25rem;
+            }
+        }
+        
+        /* Tablets portrait */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .week-info {
+                font-size: 1rem;
+            }
+            
+            .week-title {
+                font-size: 1.5rem;
+            }
+            
+            .current-badge {
+                display: block;
+                margin: 0.5rem 0 0 0;
+                width: fit-content;
+            }
+            
+            .menu-container:not(.compact) {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .week-section {
+                margin-bottom: 1.5rem;
+                padding: 1rem;
+            }
+        }
+        
+        /* Mobile devices */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            header {
+                margin-bottom: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .week-info {
+                font-size: 0.9rem;
+            }
+            
+            .controls {
+                position: fixed;
+                right: 0.5rem;
+                top: 0.5rem;
+                flex-direction: column;
+                gap: 0.35rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.7rem;
+                border-radius: 6px;
+            }
+            
+            .quick-view-header {
+                padding: 0.75rem 1rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .quick-view-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .quick-view-header h2::before {
+                font-size: 1rem;
+            }
+            
+            .timeline-container {
+                padding: 0.75rem 0.5rem;
+            }
+            
+            .timeline-dot {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .timeline-label {
+                font-size: 0.65rem;
+            }
+            
+            .week-section {
+                margin-bottom: 1.5rem;
+                padding: 0.75rem;
+            }
+            
+            .week-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+            
+            .current-badge {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.6rem;
+            }
+            
+            .menu-container {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .day-card {
+                padding: 1rem;
+            }
+            
+            .day-card h2 {
+                font-size: 1.2rem;
+            }
+            
+            .meal h3 {
+                font-size: 0.9rem;
+            }
+            
+            .meal p {
+                font-size: 0.85rem;
+            }
+            
+            .day-badge {
+                top: -8px;
+                right: 10px;
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+            
+            footer {
+                margin-top: 1.5rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            .container {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            .week-section {
+                padding: 0.5rem;
+            }
+            
+            .week-title {
+                font-size: 1.1rem;
+            }
+            
+            .day-card {
+                padding: 0.75rem;
+            }
+            
+            .current-badge {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+        </header>
+        
+        <div class="controls">
+            <button class="btn btn-secondary" id="btn-all-weeks" onclick="toggleAllWeeks()">Tutte le Settimane</button>
+        </div>
+        
+        <div id="quick-view">
+            <!-- Quick view (all days of current week) will be generated here -->
+        </div>
+        
+        <div id="all-weeks-container" class="hidden">
+            <div class="timeline-container">
+                <div class="timeline" id="timeline">
+                    <div class="timeline-item active" data-week="1" onclick="scrollToWeek(1)">
+                        <div class="timeline-dot">1</div>
+                        <div class="timeline-label">Sett. 1</div>
+                    </div>
+                    <div class="timeline-item" data-week="2" onclick="scrollToWeek(2)">
+                        <div class="timeline-dot">2</div>
+                        <div class="timeline-label">Sett. 2</div>
+                    </div>
+                    <div class="timeline-item" data-week="3" onclick="scrollToWeek(3)">
+                        <div class="timeline-dot">3</div>
+                        <div class="timeline-label">Sett. 3</div>
+                    </div>
+                    <div class="timeline-item" data-week="4" onclick="scrollToWeek(4)">
+                        <div class="timeline-dot">4</div>
+                        <div class="timeline-label">Sett. 4</div>
+                    </div>
+                </div>
+            </div>
+            <div id="weeks-content">
+                <!-- All weeks will be generated by JavaScript -->
+            </div>
+        </div>
+        
+        <footer>
+        </footer>
+    </div>
+
+    <!-- Menu data embedded in HTML for easy local editing -->
+    <script type="text/plain" id="menu-data">
+# Menu Settimanale Asilo
+# 
+# IMPORTANTE: Configurare la data del lunedì della prima settimana
+# nella costante WEEK_1_MONDAY nel codice JavaScript (riga ~830)
+# Formato data: YYYY-MM-DD (es: 2025-10-20)
+#
+# Formato dati: settimana|giorno|primo|secondo|frutta
+# Settimana: 1-4
+# Giorno: 1=Lunedì, 2=Martedì, 3=Mercoledì, 4=Giovedì, 5=Venerdì, 6=Sabato
+
+# Settimana 1
+1|1|Pasta al pomodoro|Pollo alla griglia|Mela
+1|2|Risotto ai funghi|Bistecca di manzo|Pera
+1|3|Minestrone|Pesce al forno|Banana
+1|4|Penne all'arrabbiata|Cotoletta alla milanese|Arancia
+1|5|Gnocchi al pesto|Hamburger di tacchino|Kiwi
+1|6|Gnocchi al ragù|Polpette di melanzane|Fragole
+
+# Settimana 2
+2|1|Pasta al tonno|Salmone al forno|Fragole
+2|2|Risotto alla zucca|Spezzatino|Mandarino
+2|3|Pasta al forno|Polpette al sugo|Mela
+2|4|Zuppa di legumi|Brasato|Pera
+2|5|Pasta al ragù|Frittata di patate|Banana
+2|6|Gnocchi al ragù|Polpette di melanzane|Fragole
+
+# Settimana 3
+3|1|Pasta al pesto|Petto di pollo|Arancia
+3|2|Risotto alla milanese|Salsiccia|Kiwi
+3|3|Pasta al tonno|Merluzzo al limone|Fragole
+3|4|Pasta al sugo|Cotoletta di vitello|Mandarino
+3|5|Zuppa di ceci|Hamburger di manzo|Mela
+3|6|Gnocchi al ragù|Polpette di melanzane|Fragole
+
+# Settimana 4
+4|1|Pasta al forno|Pollo al curry|Pera
+4|2|Risotto ai frutti di mare|Bistecca di maiale|Banana
+4|3|Minestra di verdure|Orata al forno|Arancia
+4|4|Pasta all'amatriciana|Fesa di tacchino|Kiwi
+4|5|Gnocchi al ragù|Polpette di melanzane|Fragole
+4|6|Gnocchi al ragù|Polpette di melanzane|Fragole
+    </script>
+
+    <script>
+        // *** CONFIGURAZIONE DATA DI INIZIO ***
+        // Specificare qui il lunedì della prima settimana nel formato YYYY-MM-DD
+        const WEEK_1_MONDAY = '2025-10-06';
+        
+        // Menu data will be loaded from embedded script
+        let MENU = {
+            0: {},
+            1: {},
+            2: {},
+            3: {}
+        };
+
+        // Day mapping from number to Italian name
+        const DAY_NAMES = {
+            1: 'Lunedì',
+            2: 'Martedì',
+            3: 'Mercoledì',
+            4: 'Giovedì',
+            5: 'Venerdì',
+            6: 'Sabato'
+        };
+
+        // Load menu from embedded script tag
+        function loadMenuFromFile() {
+            try {
+                const menuDataElement = document.getElementById('menu-data');
+                if (menuDataElement) {
+                    const text = menuDataElement.textContent;
+                    parseMenuFile(text);
+                } else {
+                    loadDefaultMenu();
+                }
+            } catch (error) {
+                console.error('Errore nel caricamento del menu:', error);
+                loadDefaultMenu();
+            }
+        }
+
+        function parseMenuFile(text) {
+            const lines = text.split('\n');
+            
+            for (const line of lines) {
+                // Skip comments and empty lines
+                if (line.trim().startsWith('#') || line.trim() === '') {
+                    continue;
+                }
+                
+                // Parse line format: settimana|giorno|primo|secondo|frutta
+                const parts = line.split('|').map(p => p.trim());
+                
+                if (parts.length === 5) {
+                    const weekNum = parseInt(parts[0]) - 1; // Convert to 0-based index
+                    const dayNum = parseInt(parts[1]);
+                    const primo = parts[2];
+                    const secondo = parts[3];
+                    const frutta = parts[4];
+                    
+                    const dayName = DAY_NAMES[dayNum];
+                    
+                    if (dayName && weekNum >= 0 && weekNum <= 3) {
+                        MENU[weekNum][dayName] = { primo, secondo, frutta };
+                    }
+                }
+            }
+        }
+
+        function loadDefaultMenu() {
+            // Fallback menu if file loading fails
+            MENU = {
+                0: {
+                    'Lunedì': { primo: 'Pasta al pomodoro', secondo: 'Pollo alla griglia', frutta: 'Mela' },
+                    'Martedì': { primo: 'Risotto ai funghi', secondo: 'Bistecca di manzo', frutta: 'Pera' },
+                    'Mercoledì': { primo: 'Minestrone', secondo: 'Pesce al forno', frutta: 'Banana' },
+                    'Giovedì': { primo: 'Penne all\'arrabbiata', secondo: 'Cotoletta alla milanese', frutta: 'Arancia' },
+                    'Venerdì': { primo: 'Gnocchi al pesto', secondo: 'Hamburger di tacchino', frutta: 'Kiwi' },
+                    'Sabato': { primo: 'Gnocchi al pesto', secondo: 'Hamburger di tacchino', frutta: 'Kiwi' }
+                },
+                1: {
+                    'Lunedì': { primo: 'Pasta al tonno', secondo: 'Salmone al forno', frutta: 'Fragole' },
+                    'Martedì': { primo: 'Risotto alla zucca', secondo: 'Spezzatino', frutta: 'Mandarino' },
+                    'Mercoledì': { primo: 'Pasta al forno', secondo: 'Polpette al sugo', frutta: 'Mela' },
+                    'Giovedì': { primo: 'Zuppa di legumi', secondo: 'Brasato', frutta: 'Pera' },
+                    'Venerdì': { primo: 'Pasta al ragù', secondo: 'Frittata di patate', frutta: 'Banana' },
+                    'Sabato': { primo: 'Pasta al ragù', secondo: 'Frittata di patate', frutta: 'Banana' }
+                },
+                2: {
+                    'Lunedì': { primo: 'Pasta al pesto', secondo: 'Petto di pollo', frutta: 'Arancia' },
+                    'Martedì': { primo: 'Risotto alla milanese', secondo: 'Salsiccia', frutta: 'Kiwi' },
+                    'Mercoledì': { primo: 'Pasta al tonno', secondo: 'Merluzzo al limone', frutta: 'Fragole' },
+                    'Giovedì': { primo: 'Pasta al sugo', secondo: 'Cotoletta di vitello', frutta: 'Mandarino' },
+                    'Venerdì': { primo: 'Zuppa di ceci', secondo: 'Hamburger di manzo', frutta: 'Mela' },
+                    'Sabato': { primo: 'Zuppa di ceci', secondo: 'Hamburger di manzo', frutta: 'Mela' }
+                },
+                3: {
+                    'Lunedì': { primo: 'Pasta al forno', secondo: 'Pollo al curry', frutta: 'Pera' },
+                    'Martedì': { primo: 'Risotto ai frutti di mare', secondo: 'Bistecca di maiale', frutta: 'Banana' },
+                    'Mercoledì': { primo: 'Minestra di verdure', secondo: 'Orata al forno', frutta: 'Arancia' },
+                    'Giovedì': { primo: 'Pasta all\'amatriciana', secondo: 'Fesa di tacchino', frutta: 'Kiwi' },
+                    'Venerdì': { primo: 'Gnocchi al ragù', secondo: 'Polpette di melanzane', frutta: 'Fragole' },
+                    'Sabato': { primo: 'Gnocchi al ragù', secondo: 'Polpette di melanzane', frutta: 'Fragole' }
+                }
+            };
+        }
+
+        function getWeekNumber(date = new Date()) {
+            // Calcola il numero di settimana basato sulla data di inizio configurata
+            const startDate = new Date(WEEK_1_MONDAY);
+            const currentDate = new Date(date);
+            
+            // Calcola la differenza in giorni
+            const diffTime = currentDate - startDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Calcola il numero di settimana (0-3 in ciclo di 4 settimane)
+            const weeksSinceStart = Math.floor(diffDays / 7);
+            let weekNum = weeksSinceStart % 4;
+            
+            // Gestisci il caso di date prima dell'inizio (numeri negativi)
+            if (weekNum < 0) {
+                weekNum = (weekNum + 4) % 4;
+            }
+            
+            return weekNum;
+        }
+
+        function getCurrentDay(date = new Date()) {
+            const days = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+            return days[date.getDay()];
+        }
+
+        function getYesterdayDay() {
+            const days = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            return days[yesterday.getDay()];
+        }
+
+        function getTomorrowDay(date = new Date()) {
+            const days = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+            const tomorrow = new Date(date);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            return days[tomorrow.getDay()];
+        }
+        
+        // Calcola la data effettiva per un giorno specifico di una settimana
+        function getDateForWeekDay(weekNum, dayName) {
+            const startDate = new Date(WEEK_1_MONDAY);
+            const dayIndex = getDayIndex(dayName);
+            
+            // Calcola quanti giorni aggiungere alla data di inizio
+            const daysToAdd = (weekNum * 7) + dayIndex;
+            
+            const resultDate = new Date(startDate);
+            resultDate.setDate(startDate.getDate() + daysToAdd);
+            
+            return resultDate;
+        }
+        
+        // Formatta la data in formato italiano
+        function formatDate(date) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            return `${day}/${month}`;
+        }
+
+        // Funzione per aggiungere emoji ai piatti
+        function addEmojiToFood(text) {
+            const emojiMap = {
+                // Carne
+                'pollo': '🐔',
+                'tacchino': '🦃',
+                'manzo': '🐄',
+                'bistecca': '🥩',
+                'vitello': '🥩',
+                'maiale': '🐷',
+                'salsiccia': '🌭',
+                'hamburger': '🍔',
+                'cotoletta': '🍖',
+                'spezzatino': '🍖',
+                'brasato': '🍖',
+                'polpette': '🍖',
+                
+                // Pesce
+                'pesce': '🐟',
+                'salmone': '🐟',
+                'tonno': '🐟',
+                'merluzzo': '🐟',
+                'orata': '🐟',
+                'frutti di mare': '🦐',
+                
+                // Pasta e primi
+                'pasta': '🍝',
+                'spaghetti': '🍝',
+                'penne': '🍝',
+                'gnocchi': '🥟',
+                'risotto': '🍚',
+                'minestrone': '🥣',
+                'minestra': '🥣',
+                'zuppa': '🥣',
+                
+                // Verdure
+                'funghi': '🍄',
+                'pomodoro': '🍅',
+                'zucca': '🎃',
+                'legumi': '🫘',
+                'ceci': '🫘',
+                'verdure': '🥬',
+                'melanzane': '🍆',
+                'patate': '🥔',
+                
+                // Frutta
+                'mela': '🍎',
+                'pera': '🍐',
+                'banana': '🍌',
+                'arancia': '🍊',
+                'kiwi': '🥝',
+                'fragole': '🍓',
+                'mandarino': '🍊',
+                
+                // Altro
+                'frittata': '🍳',
+                'pesto': '🌿',
+                'ragù': '🍖',
+                'sugo': '🍅',
+                'curry': '🍛'
+            };
+            
+            let result = text;
+            const lowerText = text.toLowerCase();
+            
+            // Cerca la parola chiave più lunga che corrisponde (es. "frutti di mare" prima di "mare")
+            const sortedKeys = Object.keys(emojiMap).sort((a, b) => b.length - a.length);
+            
+            for (const key of sortedKeys) {
+                if (lowerText.includes(key)) {
+                    result = emojiMap[key] + ' ' + result;
+                    break; // Aggiungi solo un'emoji per piatto
+                }
+            }
+            
+            return result;
+        }
+
+        function createDayCard(day, meals, dayType = '', weekNum = null) {
+            const card = document.createElement('div');
+            let cardClass = 'day-card';
+            let labelHTML = '';
+            let dateHTML = '';
+            
+            // Aggiungi la data se viene fornito il numero di settimana
+            if (weekNum !== null) {
+                const date = getDateForWeekDay(weekNum, day);
+                dateHTML = `<span class="day-date">${formatDate(date)}</span>`;
+            }
+            
+            if (dayType === 'today') {
+                cardClass += ' today';
+                labelHTML = '<span class="day-label today-label">Oggi</span>';
+            } else if (dayType === 'tomorrow') {
+                cardClass += ' tomorrow';
+                labelHTML = '<span class="day-label tomorrow-label">Domani</span>';
+            }
+            
+            card.className = cardClass;
+            card.innerHTML = `
+                <h2><span>${day}</span>${dateHTML}${labelHTML}</h2>
+                <div class="meal">
+                    <h3>🍝 Primo</h3>
+                    <p>${addEmojiToFood(meals.primo)}</p>
+                </div>
+                <div class="meal">
+                    <h3>🍖 Secondo</h3>
+                    <p>${addEmojiToFood(meals.secondo)}</p>
+                </div>
+                <div class="meal">
+                    <h3>🍎 Frutta</h3>
+                    <p>${addEmojiToFood(meals.frutta)}</p>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function getDayIndex(dayName) {
+            const dayOrder = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+            return dayOrder.indexOf(dayName);
+        }
+
+        function displayQuickView() {
+            const today = new Date();
+            const currentDay = getCurrentDay(today);
+            
+            // Se è domenica, mostra la prossima settimana
+            let displayWeek = getWeekNumber(today);
+            let displayStartDay = currentDay;
+            
+            if (currentDay === 'Domenica') {
+                // Trova il prossimo lunedì
+                const nextMonday = new Date(today);
+                nextMonday.setDate(today.getDate() + 1);
+                
+                displayWeek = getWeekNumber(nextMonday);
+                displayStartDay = 'Lunedì';
+            }
+            
+            const menu = MENU[displayWeek];
+            const currentDayIndex = getDayIndex(displayStartDay);
+            const tomorrowDay = getTomorrowDay(today);
+            
+            const quickView = document.getElementById('quick-view');
+            quickView.innerHTML = '';
+            
+            // Calculate week date range
+            const weekStartDate = getDateForWeekDay(displayWeek, 'Lunedì');
+            const weekEndDate = getDateForWeekDay(displayWeek, 'Sabato');
+            const dateRangeText = `${formatDate(weekStartDate)} - ${formatDate(weekEndDate)}`;
+            
+            // Add week header
+            const weekHeader = document.createElement('div');
+            weekHeader.className = `quick-view-header week-${displayWeek + 1}`;
+            const weekTitle = currentDay === 'Domenica'
+                ? `Prossima Settimana (Settimana ${displayWeek + 1})`
+                : `Settimana ${displayWeek + 1}`;
+            weekHeader.innerHTML = `<h2>${weekTitle} <small style="font-size:0.8em; font-weight:400;">(${dateRangeText})</small></h2>`;
+            quickView.appendChild(weekHeader);
+            
+            const menuContainer = document.createElement('div');
+            menuContainer.className = 'menu-container compact';
+            
+            // Build list of days to show (only from today onwards)
+            const daysToShow = [];
+            
+            for (const [day, meals] of Object.entries(menu)) {
+                const dayIndex = getDayIndex(day);
+                
+                // Only show days from today onwards
+                if (dayIndex >= currentDayIndex) {
+                    let dayType = '';
+                    let order = dayIndex;
+                    
+                    if (day === displayStartDay && currentDay !== 'Domenica') {
+                        dayType = 'today';
+                        order = 0;
+                    } else if (day === tomorrowDay && currentDay !== 'Domenica') {
+                        dayType = 'tomorrow';
+                        order = 1;
+                    }
+                    
+                    daysToShow.push({ day, meals, dayType, order });
+                }
+            }
+            
+            // Sort to ensure today comes first, then tomorrow, then remaining days in order
+            daysToShow.sort((a, b) => a.order - b.order);
+            
+            // Add all cards
+            daysToShow.forEach(item => {
+                menuContainer.appendChild(createDayCard(item.day, item.meals, item.dayType, displayWeek));
+            });
+            
+            quickView.appendChild(menuContainer);
+        }
+
+
+        function displayAllWeeks() {
+            const currentWeek = getWeekNumber();
+            const currentDay = getCurrentDay();
+            const tomorrowDay = getTomorrowDay();
+            
+            const weeksContent = document.getElementById('weeks-content');
+            weeksContent.innerHTML = '';
+            
+            // Mark current week in timeline
+            markCurrentWeekInTimeline(currentWeek + 1);
+            
+            // Show weeks in order 1, 2, 3, 4 (not based on current week)
+            for (let weekNum = 0; weekNum < 4; weekNum++) {
+                const isCurrentWeek = weekNum === currentWeek;
+                const menu = MENU[weekNum];
+                
+                const weekSection = document.createElement('div');
+                // Add both week color class and current-week class if applicable
+                const weekColorClass = `week-${weekNum + 1}`;
+                weekSection.className = `week-section ${weekColorClass}${isCurrentWeek ? ' current-week' : ''}`;
+                weekSection.id = `week-${weekNum + 1}`; // Add ID for scrolling
+                weekSection.setAttribute('data-week', weekNum + 1);
+                
+                // Calculate week date range
+                const weekStartDate = getDateForWeekDay(weekNum, 'Lunedì');
+                const weekEndDate = getDateForWeekDay(weekNum, 'Sabato');
+                const dateRangeText = `${formatDate(weekStartDate)} - ${formatDate(weekEndDate)}`;
+                
+                const weekTitle = document.createElement('h2');
+                weekTitle.className = 'week-title';
+                weekTitle.innerHTML = `Settimana ${weekNum + 1} <small style="font-size:0.75em; font-weight:400; color:#666;">(${dateRangeText})</small>${isCurrentWeek ? '<span class="current-badge">Settimana Corrente</span>' : ''}`;
+                weekSection.appendChild(weekTitle);
+                
+                const menuContainer = document.createElement('div');
+                menuContainer.className = 'menu-container';
+                
+                // Mostra i giorni nell'ordine corretto (Lunedì-Sabato)
+                const dayOrder = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+                for (const day of dayOrder) {
+                    const meals = menu[day];
+                    if (meals) {
+                        let dayType = '';
+                        if (isCurrentWeek) {
+                            if (day === currentDay) dayType = 'today';
+                            else if (day === tomorrowDay) dayType = 'tomorrow';
+                        }
+                        
+                        menuContainer.appendChild(createDayCard(day, meals, dayType, weekNum));
+                    }
+                }
+                
+                weekSection.appendChild(menuContainer);
+                weeksContent.appendChild(weekSection);
+            }
+            
+            // Setup intersection observer for timeline
+            setupWeekObserver();
+            
+            // Scroll to current week after a short delay to ensure rendering is complete
+            setTimeout(() => {
+                scrollToWeek(currentWeek + 1, false);
+            }, 100);
+        }
+
+        // Mark current week in timeline (permanent indicator)
+        function markCurrentWeekInTimeline(currentWeekNum) {
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                const weekNum = parseInt(item.getAttribute('data-week'));
+                if (weekNum === currentWeekNum) {
+                    item.classList.add('current');
+                } else {
+                    item.classList.remove('current');
+                }
+            });
+        }
+
+
+        function toggleAllWeeks() {
+            const quickView = document.getElementById('quick-view');
+            const allWeeksContainer = document.getElementById('all-weeks-container');
+            const btnAllWeeks = document.getElementById('btn-all-weeks');
+            
+            if (allWeeksContainer.classList.contains('hidden')) {
+                // Show all weeks
+                quickView.classList.add('hidden');
+                allWeeksContainer.classList.remove('hidden');
+                
+                btnAllWeeks.textContent = 'Nascondi';
+                btnAllWeeks.classList.remove('btn-secondary');
+                btnAllWeeks.classList.add('btn-primary');
+                
+                displayAllWeeks();
+            } else {
+                // Hide all weeks, show quick view
+                quickView.classList.remove('hidden');
+                allWeeksContainer.classList.add('hidden');
+                
+                btnAllWeeks.textContent = 'Tutte le Settimane';
+                btnAllWeeks.classList.remove('btn-primary');
+                btnAllWeeks.classList.add('btn-secondary');
+            }
+        }
+
+        // Setup Intersection Observer to track which week is visible
+        function setupWeekObserver() {
+            const options = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const weekNum = entry.target.getAttribute('data-week');
+                        updateTimeline(parseInt(weekNum));
+                    }
+                });
+            }, options);
+
+            // Observe all week sections
+            document.querySelectorAll('.week-section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Update timeline to highlight active week
+        function updateTimeline(weekNum) {
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                if (parseInt(item.getAttribute('data-week')) === weekNum) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Scroll to specific week
+        function scrollToWeek(weekNum, smooth = true) {
+            const weekElement = document.getElementById(`week-${weekNum}`);
+            if (weekElement) {
+                const offset = 80; // Offset for sticky timeline
+                const elementPosition = weekElement.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: smooth ? 'smooth' : 'auto'
+                });
+
+                updateTimeline(weekNum);
+            }
+        }
+
+        // Initialize app: load menu and display
+        function initApp() {
+            loadMenuFromFile();
+            displayQuickView();
+            
+            // Display configured date in footer
+            const configDateElement = document.getElementById('config-date');
+            if (configDateElement) {
+                const startDate = new Date(WEEK_1_MONDAY);
+                const formattedDate = startDate.toLocaleDateString('it-IT', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                configDateElement.textContent = formattedDate;
+            }
+        }
+
+        // Start app when page loads
+        initApp();
+    </script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then((registration) => {
+                        console.log('Service Worker registrato con successo:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Registrazione Service Worker fallita:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
