@@ -1,4 +1,4 @@
-const CACHE_NAME = 'menu-asilo-v6';
+const CACHE_NAME = 'menu-asilo-v7';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -14,8 +14,22 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Cache aperta');
-        return cache.addAll(urlsToCache);
+        console.log('Cache aperta, tentativo di cache dei file...');
+        // Prova a cachare ogni file singolarmente per evitare errori 404
+        return Promise.all(
+          urlsToCache.map(url => {
+            return cache.add(url).catch(err => {
+              console.warn(`Impossibile cachare ${url}:`, err);
+              // Continua anche se un file non è disponibile
+            });
+          })
+        );
+      })
+      .then(() => {
+        console.log('Service Worker installato con successo');
+      })
+      .catch((error) => {
+        console.error('Errore durante installazione Service Worker:', error);
       })
   );
 });
