@@ -19,7 +19,7 @@
 # Settimana 2
 2|1|Pasta al tonno|Salmone al forno|Fragole
 2|2|Risotto alla zucca|Spezzatino|Mandarino
-2|3|Pasta al forno|Polpette al sugo|Mela
+2|3|Pasta al sugo|Polpette al sugo|Mela
 2|4|Zuppa di legumi|Brasato|Pera
 2|5|Pasta al ragù|Frittata di patate|Banana
 2|6|Gnocchi al ragù|Polpette di melanzane|Fragole
