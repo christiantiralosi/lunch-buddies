@@ -1,6 +1,5 @@
-const CACHE_NAME = 'menu-asilo-v8';
+const CACHE_NAME = 'menu-asilo-v9';
 const urlsToCache = [
-  './index.html',
   './manifest.json',
   './icon-192.svg',
   './icon-512.svg'
@@ -57,8 +56,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
-  // NESSUNA CACHE per menu-data.txt - SEMPRE dalla rete!
-  if (url.pathname.includes('menu-data.txt')) {
+  // NESSUNA CACHE per menu-data.txt e index.html - SEMPRE dalla rete!
+  if (url.pathname.includes('menu-data.txt') || url.pathname.endsWith('/') || url.pathname.endsWith('index.html')) {
     event.respondWith(
       fetch(event.request, {
         cache: 'no-store'  // Forza nessuna cache del browser
