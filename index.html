@@ -842,8 +842,7 @@
             2: 'Martedì',
             3: 'Mercoledì',
             4: 'Giovedì',
-            5: 'Venerdì',
-            6: 'Sabato'
+            5: 'Venerdì'
         };
 
         // Load menu from external text file
@@ -908,32 +907,28 @@
                     'Martedì': { primo: 'Risotto ai funghi', secondo: 'Bistecca di manzo', frutta: 'Pera' },
                     'Mercoledì': { primo: 'Minestrone', secondo: 'Pesce al forno', frutta: 'Banana' },
                     'Giovedì': { primo: 'Penne all\'arrabbiata', secondo: 'Cotoletta alla milanese', frutta: 'Arancia' },
-                    'Venerdì': { primo: 'Gnocchi al pesto', secondo: 'Hamburger di tacchino', frutta: 'Kiwi' },
-                    'Sabato': { primo: 'Gnocchi al pesto', secondo: 'Hamburger di tacchino', frutta: 'Kiwi' }
+                    'Venerdì': { primo: 'Gnocchi al pesto', secondo: 'Hamburger di tacchino', frutta: 'Kiwi' }
                 },
                 1: {
                     'Lunedì': { primo: 'Pasta al tonno', secondo: 'Salmone al forno', frutta: 'Fragole' },
                     'Martedì': { primo: 'Risotto alla zucca', secondo: 'Spezzatino', frutta: 'Mandarino' },
                     'Mercoledì': { primo: 'Pasta al forno', secondo: 'Polpette al sugo', frutta: 'Mela' },
                     'Giovedì': { primo: 'Zuppa di legumi', secondo: 'Brasato', frutta: 'Pera' },
-                    'Venerdì': { primo: 'Pasta al ragù', secondo: 'Frittata di patate', frutta: 'Banana' },
-                    'Sabato': { primo: 'Pasta al ragù', secondo: 'Frittata di patate', frutta: 'Banana' }
+                    'Venerdì': { primo: 'Pasta al ragù', secondo: 'Frittata di patate', frutta: 'Banana' }
                 },
                 2: {
                     'Lunedì': { primo: 'Pasta al pesto', secondo: 'Petto di pollo', frutta: 'Arancia' },
                     'Martedì': { primo: 'Risotto alla milanese', secondo: 'Salsiccia', frutta: 'Kiwi' },
                     'Mercoledì': { primo: 'Pasta al tonno', secondo: 'Merluzzo al limone', frutta: 'Fragole' },
                     'Giovedì': { primo: 'Pasta al sugo', secondo: 'Cotoletta di vitello', frutta: 'Mandarino' },
-                    'Venerdì': { primo: 'Zuppa di ceci', secondo: 'Hamburger di manzo', frutta: 'Mela' },
-                    'Sabato': { primo: 'Zuppa di ceci', secondo: 'Hamburger di manzo', frutta: 'Mela' }
+                    'Venerdì': { primo: 'Zuppa di ceci', secondo: 'Hamburger di manzo', frutta: 'Mela' }
                 },
                 3: {
                     'Lunedì': { primo: 'Pasta al forno', secondo: 'Pollo al curry', frutta: 'Pera' },
                     'Martedì': { primo: 'Risotto ai frutti di mare', secondo: 'Bistecca di maiale', frutta: 'Banana' },
                     'Mercoledì': { primo: 'Minestra di verdure', secondo: 'Orata al forno', frutta: 'Arancia' },
                     'Giovedì': { primo: 'Pasta all\'amatriciana', secondo: 'Fesa di tacchino', frutta: 'Kiwi' },
-                    'Venerdì': { primo: 'Gnocchi al ragù', secondo: 'Polpette di melanzane', frutta: 'Fragole' },
-                    'Sabato': { primo: 'Gnocchi al ragù', secondo: 'Polpette di melanzane', frutta: 'Fragole' }
+                    'Venerdì': { primo: 'Gnocchi al ragù', secondo: 'Polpette di melanzane', frutta: 'Fragole' }
                 }
             };
         }
@@ -1101,16 +1096,16 @@
             card.innerHTML = `
                 <h2><span>${day}</span>${dateHTML}${labelHTML}</h2>
                 <div class="meal">
-                    <h3>🍝 Primo</h3>
-                    <p>${addEmojiToFood(meals.primo)}</p>
+                    <h3>Primo</h3>
+                    <p>${meals.primo}</p>
                 </div>
                 <div class="meal">
-                    <h3>🍖 Secondo</h3>
-                    <p>${addEmojiToFood(meals.secondo)}</p>
+                    <h3>Secondo</h3>
+                    <p>${meals.secondo}</p>
                 </div>
                 <div class="meal">
-                    <h3>🍎 Frutta</h3>
-                    <p>${addEmojiToFood(meals.frutta)}</p>
+                    <h3>Frutta</h3>
+                    <p>${meals.frutta}</p>
                 </div>
             `;
             
@@ -1118,7 +1113,7 @@
         }
 
         function getDayIndex(dayName) {
-            const dayOrder = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+            const dayOrder = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
             return dayOrder.indexOf(dayName);
         }
 
@@ -1148,7 +1143,7 @@
             
             // Calculate week date range
             const weekStartDate = getDateForWeekDay(displayWeek, 'Lunedì');
-            const weekEndDate = getDateForWeekDay(displayWeek, 'Sabato');
+            const weekEndDate = getDateForWeekDay(displayWeek, 'Venerdì');
             const dateRangeText = `${formatDate(weekStartDate)} - ${formatDate(weekEndDate)}`;
             
             // Add week header
@@ -1223,7 +1218,7 @@
                 
                 // Calculate week date range
                 const weekStartDate = getDateForWeekDay(weekNum, 'Lunedì');
-                const weekEndDate = getDateForWeekDay(weekNum, 'Sabato');
+                const weekEndDate = getDateForWeekDay(weekNum, 'Venerdì');
                 const dateRangeText = `${formatDate(weekStartDate)} - ${formatDate(weekEndDate)}`;
                 
                 const weekTitle = document.createElement('h2');
@@ -1234,8 +1229,8 @@
                 const menuContainer = document.createElement('div');
                 menuContainer.className = 'menu-container';
                 
-                // Mostra i giorni nell'ordine corretto (Lunedì-Sabato)
-                const dayOrder = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+                // Mostra i giorni nell'ordine corretto (Lunedì-Venerdì)
+                const dayOrder = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'];
                 for (const day of dayOrder) {
                     const meals = menu[day];
                     if (meals) {
