@@ -16,9 +16,9 @@
     <link rel="manifest" href="manifest.json">
     
     <!-- Icons -->
-    <link rel="apple-touch-icon" href="icon-192.svg">
-    <link rel="icon" type="image/svg+xml" sizes="192x192" href="icon-192.svg">
-    <link rel="icon" type="image/svg+xml" sizes="512x512" href="icon-512.svg">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -1117,18 +1117,26 @@
             return dayOrder.indexOf(dayName);
         }
 
+        // Verifica se il giorno corrente è weekend (sabato o domenica)
+        function isWeekend(date = new Date()) {
+            const day = getCurrentDay(date);
+            return day === 'Sabato' || day === 'Domenica';
+        }
+
         function displayQuickView() {
             const today = new Date();
             const currentDay = getCurrentDay(today);
+            const isWeekendDay = isWeekend(today);
             
-            // Se è domenica, mostra la prossima settimana
+            // Se è weekend (sabato o domenica), mostra la settimana successiva
             let displayWeek = getWeekNumber(today);
             let displayStartDay = currentDay;
             
-            if (currentDay === 'Domenica') {
+            if (isWeekendDay) {
                 // Trova il prossimo lunedì
                 const nextMonday = new Date(today);
-                nextMonday.setDate(today.getDate() + 1);
+                const daysUntilMonday = currentDay === 'Sabato' ? 2 : 1;
+                nextMonday.setDate(today.getDate() + daysUntilMonday);
                 
                 displayWeek = getWeekNumber(nextMonday);
                 displayStartDay = 'Lunedì';
@@ -1149,7 +1157,7 @@
             // Add week header
             const weekHeader = document.createElement('div');
             weekHeader.className = `quick-view-header week-${displayWeek + 1}`;
-            const weekTitle = currentDay === 'Domenica'
+            const weekTitle = isWeekendDay
                 ? `Prossima Settimana (Settimana ${displayWeek + 1})`
                 : `Settimana ${displayWeek + 1}`;
             weekHeader.innerHTML = `<h2>${weekTitle} <small style="font-size:0.8em; font-weight:400;">(${dateRangeText})</small></h2>`;
@@ -1169,12 +1177,15 @@
                     let dayType = '';
                     let order = dayIndex;
                     
-                    if (day === displayStartDay && currentDay !== 'Domenica') {
-                        dayType = 'today';
-                        order = 0;
-                    } else if (day === tomorrowDay && currentDay !== 'Domenica') {
-                        dayType = 'tomorrow';
-                        order = 1;
+                    // Non evidenziare oggi e domani se è weekend
+                    if (!isWeekendDay) {
+                        if (day === displayStartDay) {
+                            dayType = 'today';
+                            order = 0;
+                        } else if (day === tomorrowDay) {
+                            dayType = 'tomorrow';
+                            order = 1;
+                        }
                     }
                     
                     daysToShow.push({ day, meals, dayType, order });
@@ -1194,19 +1205,30 @@
 
 
         function displayAllWeeks() {
+            const today = new Date();
             const currentWeek = getWeekNumber();
             const currentDay = getCurrentDay();
             const tomorrowDay = getTomorrowDay();
+            const isWeekendDay = isWeekend(today);
+            
+            // Se è weekend, la settimana "corrente" da visualizzare è la prossima
+            let displayCurrentWeek = currentWeek;
+            if (isWeekendDay) {
+                const nextMonday = new Date(today);
+                const daysUntilMonday = currentDay === 'Sabato' ? 2 : 1;
+                nextMonday.setDate(today.getDate() + daysUntilMonday);
+                displayCurrentWeek = getWeekNumber(nextMonday);
+            }
             
             const weeksContent = document.getElementById('weeks-content');
             weeksContent.innerHTML = '';
             
             // Mark current week in timeline
-            markCurrentWeekInTimeline(currentWeek + 1);
+            markCurrentWeekInTimeline(displayCurrentWeek + 1);
             
             // Show weeks in order 1, 2, 3, 4 (not based on current week)
             for (let weekNum = 0; weekNum < 4; weekNum++) {
-                const isCurrentWeek = weekNum === currentWeek;
+                const isCurrentWeek = weekNum === displayCurrentWeek;
                 const menu = MENU[weekNum];
                 
                 const weekSection = document.createElement('div');
@@ -1235,7 +1257,8 @@
                     const meals = menu[day];
                     if (meals) {
                         let dayType = '';
-                        if (isCurrentWeek) {
+                        // Non evidenziare oggi e domani se è weekend
+                        if (isCurrentWeek && !isWeekendDay) {
                             if (day === currentDay) dayType = 'today';
                             else if (day === tomorrowDay) dayType = 'tomorrow';
                         }
@@ -1253,7 +1276,7 @@
             
             // Scroll to current week after a short delay to ensure rendering is complete
             setTimeout(() => {
-                scrollToWeek(currentWeek + 1, false);
+                scrollToWeek(displayCurrentWeek + 1, false);
             }, 100);
         }
 
