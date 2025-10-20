@@ -1,0 +1,33 @@
+# Menu Settimanale Scuola Infanzia
+# 
+# Formato dati: settimana|giorno|primo|secondo|frutta
+# Settimana: 1-4
+# Giorno: 1=Lunedì, 2=Martedì, 3=Mercoledì, 4=Giovedì, 5=Venerdì
+
+# Settimana 1
+1|1|🍝 Pasta con formaggino|🥪 Panino con prosciutto cotto|🍎 Frutta di stagione
+1|2|🍝 Pasta asciutta con sudo di pomodoro|🍖 Polpette di vitello magro al sugo di pomodoro|🍎 Frutta di stagione
+1|3|🍝 Pastina con passato di verdure|🍗 Cotoletta di pollo + 🥔 patate al forno|🍎 Frutta di stagione
+1|4|🍚 Riso con salsa di pomodoro|🐟 Bastoncini di merluzzo + 🥕 carote lesse|🍎 Frutta di stagione
+1|5|🍝 Pasta con passato di ceci e verdure|🧀 Mozzarella fior di latte|🍎 Frutta di stagione
+
+# Settimana 2
+2|1|🍝 Pastina con brodo vegetale|🍗 Fesa di tacchino con 🍞 pane|🍎 Frutta di stagione
+2|2|🍝 Pasta con salsa di pomodoro|🍖 Polpette di vitello magro|🍎 Frutta di stagione
+2|3|🍝 Pastina con passato di verdure|🍳 Frittata + 🥔 patate|🍎 Frutta di stagione
+2|4|🍝 Tubettini con salsa di pomodoro|🐟 Cotoletta di platessa|🍎 Frutta di stagione
+2|5|🍝 Pasta con passato di lenticchie e verdure|🧀 Mozzarella fior di latte|🍎 Frutta di stagione
+
+# Settimana 3
+3|1|🍝 Pasta con formaggino|🥪 Panino con prosciutto cotto|🍎 Frutta di stagione
+3|2|🍝 Pasta asciutta al pomodoro|🍖 Polpette di vitello magro al sugo di pomodoro|🍎 Frutta di stagione
+3|3|🍝 Pastina con brodo vegetale|🍳 Frittata + 🥔 crocchette di patate|🍎 Frutta di stagione
+3|4|🍝 Pasta con crema di zucca e patate|🌭 Salsicce di pollo|🍎 Frutta di stagione
+3|5|🍝 Pastina con passato di ceci e verdure|🐟 Bastoncini di merluzzo|🍎 Frutta di stagione
+
+# Settimana 4
+4|1|🍝 Pastina con brodo vegetale|🍗 Fesa di tacchino + 🍞 pane|🍎 Frutta di stagione
+4|2|🍝 Pasta asciutta con salsa di pomodoro|🍖 Polpette di vitello magro|🍎 Frutta di stagione
+4|3|🍝 Pasta con passato di lenticchie e verdure|🧀 Mozzarella fior di latte|🍎 Frutta di stagione
+4|4|🍚 Riso con salsa di pomodoro|🍗 Cotoletta di pollo + 🥕 carote lesse|🍎 Frutta di stagione
+4|5|🍝 Pastina con passato di verdure miste|🐟 Cotoletta di platessa|🍎 Frutta di stagione
