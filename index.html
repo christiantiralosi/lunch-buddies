@@ -735,6 +735,15 @@
                 margin-bottom: 1.5rem;
                 padding: 1rem;
             }
+            
+            /* Preferiti più compatti su tablet */
+            .favorite-combination {
+                padding: 1rem;
+            }
+            
+            .favorite-section-title {
+                font-size: 1.05rem;
+            }
         }
         
         /* Mobile devices */
@@ -841,6 +850,74 @@
             
             footer {
                 margin-top: 1.5rem;
+                font-size: 0.8rem;
+            }
+            
+            /* Preferiti più compatti su mobile */
+            .favorite-combination {
+                padding: 0.75rem;
+                border-radius: 15px;
+            }
+            
+            .favorite-delete-btn {
+                top: 0.5rem;
+                right: 0.5rem;
+                width: 28px;
+                height: 28px;
+                font-size: 1.3rem;
+            }
+            
+            .day-toggle {
+                margin: 0.5rem 0;
+                padding: 0.3rem;
+            }
+            
+            .day-toggle-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .favorite-day-view {
+                gap: 0.75rem;
+                margin-top: 0.75rem;
+            }
+            
+            .favorite-menu-section,
+            .favorite-activities-section {
+                padding: 0.75rem;
+            }
+            
+            .favorite-section-title {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+                padding-bottom: 0.3rem;
+            }
+            
+            .favorite-menu-items .meal {
+                margin-bottom: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .favorite-menu-items .meal h4 {
+                font-size: 0.9rem;
+                margin-bottom: 0.2rem;
+            }
+            
+            .favorite-menu-items .meal p {
+                font-size: 0.85rem;
+            }
+            
+            .favorite-activities-list .activity-moment {
+                margin-bottom: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .favorite-activities-list .activity-moment-title {
+                font-size: 0.8rem;
+                margin-bottom: 0.2rem;
+            }
+            
+            .favorite-activities-list .activity-moment-content {
                 font-size: 0.8rem;
             }
         }
@@ -1131,13 +1208,7 @@
         }
 
         .modal-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-header h3 {
-            color: #4a5f6b;
-            margin-bottom: 0.5rem;
+            display: none;
         }
 
         .form-group {
@@ -1226,7 +1297,7 @@
             background: #ffffff;
             border: 2px solid #e8eff3;
             border-radius: 25px;
-            padding: 2rem;
+            padding: 1.25rem;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             position: relative;
         }
@@ -1294,8 +1365,8 @@
             display: flex;
             justify-content: center;
             gap: 0.5rem;
-            margin: 1rem 0;
-            padding: 0.5rem;
+            margin: 0.75rem 0;
+            padding: 0.4rem;
             background: #f8fafb;
             border-radius: 15px;
         }
@@ -1329,25 +1400,25 @@
         .favorite-day-view {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .favorite-menu-section,
         .favorite-activities-section {
             background: #f8fafb;
-            padding: 1.5rem;
-            border-radius: 20px;
+            padding: 1rem;
+            border-radius: 15px;
             border: 1px solid #e8eff3;
             box-shadow: none;
         }
 
         .favorite-section-title {
             color: #586a75;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.4rem;
             border-bottom: 2px solid #e8eff3;
             display: flex;
             align-items: center;
@@ -1355,42 +1426,44 @@
         }
 
         .favorite-menu-items .meal {
-            margin-bottom: 1rem;
-            padding: 0.75rem;
+            margin-bottom: 0.6rem;
+            padding: 0.6rem;
             background: white;
-            border-radius: 12px;
-            border-left: 4px solid #a0d9e8;
+            border-radius: 10px;
+            border-left: 3px solid #a0d9e8;
         }
 
         .favorite-menu-items .meal h4 {
             color: #586a75;
-            font-size: 1rem;
-            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
         }
 
         .favorite-menu-items .meal p {
             color: #333;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            line-height: 1.3;
         }
 
         .favorite-activities-list .activity-moment {
-            margin-bottom: 0.75rem;
-            padding: 0.75rem;
+            margin-bottom: 0.6rem;
+            padding: 0.6rem;
             background: white;
-            border-radius: 12px;
-            border-left: 4px solid #586a75;
+            border-radius: 10px;
+            border-left: 3px solid #586a75;
         }
 
         .favorite-activities-list .activity-moment-title {
             font-weight: 600;
             color: #586a75;
             font-size: 0.85rem;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.25rem;
         }
 
         .favorite-activities-list .activity-moment-content {
             color: #333;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            line-height: 1.3;
         }
 
         .no-data-message {
@@ -1471,20 +1544,16 @@
 <body>
     <div class="container">
         <header></header>
-        
-        <div class="controls">
-            <button class="btn btn-primary" id="btn-install" style="display: none;">📲 Installa App</button>
-        </div>
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-tab" onclick="switchTab('favorites')">⭐ Preferiti</button>
-            <button class="nav-tab active" onclick="switchTab('menu')">📋 Menu</button>
+            <button class="nav-tab active" onclick="switchTab('favorites')">⭐ Preferiti</button>
+            <button class="nav-tab" onclick="switchTab('menu')">📋 Menu</button>
             <button class="nav-tab" onclick="switchTab('activities')">🎨 Attività</button>
         </div>
         
         <!-- MENU SECTION -->
-        <div id="menu-section">
+        <div id="menu-section" class="hidden">
             <!-- Menu Type Selector -->
             <div class="selector-container">
                 <span class="selector-label">Tipo Menu:</span>
@@ -1546,8 +1615,9 @@
         </div>
 
         <!-- FAVORITES SECTION -->
-        <div id="favorites-section" class="hidden">
+        <div id="favorites-section">
             <div class="favorites-container">
+                <button class="add-combination-btn" id="btn-install" style="display: none;">📲 Installa App</button>
                 
                 <div id="favorites-content" class="favorites-grid">
                     <!-- Favorites will be generated by JavaScript -->
@@ -1568,14 +1638,14 @@
                 <h3 id="modal-title">Nuovo cucciolo</h3>
             </div>
             
-            <form id="combination-form">
+            <form id="combination-form" style="margin-top: 0;">
                 <div class="form-group">
-                    <label for="combination-name">Nome Combinazione</label>
+                    <label for="combination-name">Nome</label>
                     <input type="text" id="combination-name" placeholder="Es: Mio Figlio - Nido" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="combination-menu">Tipo Menu</label>
+                    <label for="combination-menu">Menu</label>
                     <select id="combination-menu" required>
                         <option value="nido">👶 Nido</option>
                         <option value="infanzia">🎓 Infanzia</option>
@@ -1583,7 +1653,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="combination-activity">Gruppo Attività</label>
+                    <label for="combination-activity">Attività</label>
                     <select id="combination-activity" required>
                         <option value="nido">👶 Nido</option>
                         <option value="primavera">🌸 Primavera</option>
@@ -1628,7 +1698,7 @@
         // Current selections
         let currentMenuType = 'nido';
         let currentActivityGroup = 'nido';
-        let currentTab = 'menu';
+        let currentTab = 'favorites';
         
         // Menu data will be loaded from external file
         let MENU_NIDO = {
@@ -2478,7 +2548,6 @@
         // Open combination modal
         function openCombinationModal(combinationId = null) {
             const modal = document.getElementById('combination-modal');
-            const modalTitle = document.getElementById('modal-title');
             const form = document.getElementById('combination-form');
             
             if (combinationId) {
@@ -2487,7 +2556,6 @@
                 const combination = combinations.find(c => c.id === combinationId);
                 
                 if (combination) {
-                    modalTitle.textContent = 'Modifica Combinazione';
                     document.getElementById('combination-name').value = combination.name;
                     document.getElementById('combination-menu').value = combination.menuType;
                     document.getElementById('combination-activity').value = combination.activityGroup;
@@ -2495,7 +2563,6 @@
             } else {
                 // Add mode
                 editingCombinationId = null;
-                modalTitle.textContent = 'Nuova Combinazione';
                 form.reset();
             }
             
@@ -2510,10 +2577,7 @@
         }
 
         // Handle combination form submit
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Carica configurazione settimana all'avvio
-            await loadWeekConfig();
-            
+        document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('combination-form');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -2895,9 +2959,10 @@
 
         // Initialize app: load menu and display
         async function initApp() {
+            await loadWeekConfig();
             loadCombinations();
             await loadAllDataFiles();
-            displayQuickView();
+            displayFavorites(); // Mostra preferiti invece di quick view
             
             // Display configured date in footer
             const configDateElement = document.getElementById('config-date');
