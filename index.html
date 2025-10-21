@@ -7,7 +7,7 @@
     
     <!-- PWA Meta Tags -->
     <meta name="description" content="L'asilo a portata di mano">
-    <meta name="theme-color" content="#FF6B35">
+    <meta name="theme-color" content="#4a5f6b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Menu Asilo">
@@ -35,11 +35,12 @@
         }
 
         body {
-            background: linear-gradient(to bottom, #FFF9E6 0%, #FFE5E5 100%);
-            color: #333;
+            background: linear-gradient(135deg, #4a5f6b 0%, #5a7280 100%);
+            color: #2c3e50;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
         }
 
         .container {
@@ -55,12 +56,15 @@
         }
 
         h1 {
-            color: #2c3e50;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .week-info {
-            color: #7f8c8d;
+            color: #b8c9d4;
             font-size: 1.1rem;
         }
 
@@ -70,7 +74,8 @@
             justify-content: center;
             gap: 0.5rem;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
         }
 
         .nav-tab {
@@ -81,21 +86,23 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: white;
-            color: #666;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            color: #e0e8ed;
+            box-shadow: none;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .nav-tab.active {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            color: white;
-            box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);
+            background: #ffffff;
+            color: #4a5f6b;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         @media (hover: hover) {
-            .nav-tab:hover {
+            .nav-tab:not(.active):hover {
+                background: rgba(255, 255, 255, 0.25);
                 transform: translateY(-2px);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             }
         }
 
@@ -111,7 +118,7 @@
 
         .selector-label {
             font-weight: 600;
-            color: #2c3e50;
+            color: #ffffff;
             font-size: 1rem;
         }
 
@@ -123,26 +130,27 @@
 
         .selector-btn {
             padding: 0.6rem 1.2rem;
-            border: 2px solid #FF6B35;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: white;
-            color: #FF6B35;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e8ed;
         }
 
         .selector-btn.active {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            color: white;
-            border-color: #FF6B35;
-            box-shadow: 0 3px 8px rgba(255, 107, 53, 0.3);
+            background: #a0d9e8;
+            color: #4a5f6b;
+            border-color: #a0d9e8;
+            box-shadow: 0 3px 10px rgba(160, 217, 232, 0.4);
         }
 
         @media (hover: hover) {
             .selector-btn:hover:not(.active) {
-                background: #FFE5D9;
+                background: rgba(255, 255, 255, 0.2);
+                border-color: rgba(255, 255, 255, 0.5);
                 transform: translateY(-2px);
             }
         }
@@ -171,27 +179,29 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            background: #586a75;
             color: white;
-            border: 3px solid white;
+            border: none;
         }
 
         @media (hover: hover) {
             .btn-primary:hover {
+                background: #647783;
                 transform: translateY(-2px);
-                box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             }
         }
 
         .btn-secondary {
-            background: white;
-            color: #FF6B35;
-            border: 3px solid #FF6B35;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.4);
         }
 
         @media (hover: hover) {
             .btn-secondary:hover {
-                background: #FFE5D9;
+                background: rgba(255, 255, 255, 0.3);
+                border-color: rgba(255, 255, 255, 0.6);
                 transform: translateY(-2px);
             }
         }
@@ -210,11 +220,11 @@
             position: sticky;
             top: 0;
             z-index: 999;
-            background: white;
+            background: #ffffff;
             padding: 1rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
             margin-bottom: 1.5rem;
-            border-radius: 0 0 15px 15px;
+            border-radius: 20px;
         }
 
         .timeline {
@@ -293,11 +303,11 @@
         }
 
         .timeline-item.active .timeline-dot {
-            border-color: #FF6B35;
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            color: white;
+            border-color: #a0d9e8;
+            background: #a0d9e8;
+            color: #4a5f6b;
             transform: scale(1.2);
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 4px 15px rgba(160, 217, 232, 0.5);
         }
 
         .timeline-item.current.active .timeline-dot {
@@ -319,7 +329,7 @@
         }
 
         .timeline-item.active .timeline-label {
-            color: #FF6B35;
+            color: #a0d9e8;
             font-weight: 700;
         }
 
@@ -347,125 +357,125 @@
         }
 
         .quick-view-header h2::before {
-            content: '📅 ';
+            content: '';
             font-size: 1.3rem;
         }
 
         .quick-view-header.week-1 {
-            background: linear-gradient(135deg, #FFFACD 0%, #FFE66D 100%);
+            background: #a0d9e8;
         }
 
         .quick-view-header.week-1 h2 {
-            color: #2c3e50;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            text-shadow: none;
         }
 
         .quick-view-header.week-2 {
-            background: linear-gradient(135deg, #FFE66D 0%, #FFD93D 100%);
+            background: #8ecae6;
         }
 
         .quick-view-header.week-2 h2 {
-            color: #2c3e50;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            text-shadow: none;
         }
 
         .quick-view-header.week-3 {
-            background: linear-gradient(135deg, #FFD93D 0%, #FFC926 100%);
+            background: #7bb8d1;
         }
 
         .quick-view-header.week-3 h2 {
-            color: #2c3e50;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            text-shadow: none;
         }
 
         .quick-view-header.week-4 {
-            background: linear-gradient(135deg, #FFC926 0%, #FFB300 100%);
+            background: #6ba5bd;
         }
 
         .quick-view-header.week-4 h2 {
-            color: #2c3e50;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            text-shadow: none;
         }
 
         /* Week section */
         .week-section {
             margin-bottom: 2rem;
-            padding: 1.5rem;
-            border-radius: 20px;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 3px solid transparent;
+            padding: 2rem;
+            border-radius: 25px;
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            border: none;
         }
 
-        /* Color coding for weeks - Tonalità diverse di giallo */
+        /* Color coding for weeks - Stile clean */
         .week-section.week-1 {
-            background: linear-gradient(135deg, #FFFACD 0%, #FFE66D 100%);
-            box-shadow: 0 4px 8px rgba(255, 250, 205, 0.3);
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
         }
 
         .week-section.week-1 .week-title {
-            color: #2c3e50;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            border-bottom: 2px solid #e8eff3;
+            text-shadow: none;
         }
 
         .week-section.week-1 .day-card:not(.today):not(.tomorrow) {
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #FFE66D;
+            background: white;
+            border: 2px solid #e8eff3;
         }
 
         .week-section.week-2 {
-            background: linear-gradient(135deg, #FFE66D 0%, #FFD93D 100%);
-            box-shadow: 0 4px 8px rgba(255, 230, 109, 0.3);
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
         }
 
         .week-section.week-2 .week-title {
-            color: #2c3e50;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            border-bottom: 2px solid #e8eff3;
+            text-shadow: none;
         }
 
         .week-section.week-2 .day-card:not(.today):not(.tomorrow) {
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #FFD93D;
+            background: white;
+            border: 2px solid #e8eff3;
         }
 
         .week-section.week-3 {
-            background: linear-gradient(135deg, #FFD93D 0%, #FFC926 100%);
-            box-shadow: 0 4px 8px rgba(255, 217, 61, 0.3);
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
         }
 
         .week-section.week-3 .week-title {
-            color: #2c3e50;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            border-bottom: 2px solid #e8eff3;
+            text-shadow: none;
         }
 
         .week-section.week-3 .day-card:not(.today):not(.tomorrow) {
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #FFC926;
+            background: white;
+            border: 2px solid #e8eff3;
         }
 
         .week-section.week-4 {
-            background: linear-gradient(135deg, #FFC926 0%, #FFB300 100%);
-            box-shadow: 0 4px 8px rgba(255, 201, 38, 0.3);
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
         }
 
         .week-section.week-4 .week-title {
-            color: #2c3e50;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            color: #4a5f6b;
+            border-bottom: 2px solid #e8eff3;
+            text-shadow: none;
         }
 
         .week-section.week-4 .day-card:not(.today):not(.tomorrow) {
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #FFB300;
+            background: white;
+            border: 2px solid #e8eff3;
         }
 
         /* Current week enhancement */
         .week-section.current-week {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
-            border: 3px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px rgba(160, 217, 232, 0.4) !important;
+            border: 3px solid #a0d9e8;
         }
 
         .week-title {
@@ -474,19 +484,20 @@
             padding-bottom: 0.5rem;
             border-bottom: 2px solid #eee;
             color: #2c3e50;
+            text-align: left;
         }
 
         .current-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            color: white;
+            background: #a0d9e8;
+            color: #4a5f6b;
             padding: 0.4rem 1rem;
             border-radius: 25px;
             font-size: 0.9rem;
             margin-left: 1rem;
             font-weight: 600;
-            border: 2px solid white;
-            box-shadow: 0 3px 6px rgba(255, 107, 53, 0.3);
+            border: none;
+            box-shadow: 0 3px 8px rgba(160, 217, 232, 0.5);
         }
 
         /* Menu grid */
@@ -504,19 +515,19 @@
         /* Day card */
         .day-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             min-height: 200px;
-            border: 2px solid #f0f0f0;
+            border: 2px solid #e8eff3;
         }
 
         @media (hover: hover) {
             .day-card:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
             }
         }
 
@@ -532,11 +543,11 @@
         }
 
         .week-section .day-card.today {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+            background: #a0d9e8 !important;
         }
 
         .week-section .day-card.tomorrow {
-            background-color: #fffbf0 !important;
+            background: white !important;
         }
 
         .day-card h2 {
@@ -558,13 +569,13 @@
         }
         
         .day-card.today .day-date {
-            color: #FF6B35;
+            color: #4a5f6b;
             font-weight: 600;
         }
         
         .day-card.tomorrow .day-date {
-            color: #38A3A5;
-            font-weight: 600;
+            color: #7f8c8d;
+            font-weight: 500;
         }
 
         .day-label {
@@ -576,17 +587,17 @@
         }
 
         .today-label {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            background: #586a75;
             color: white;
-            border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+            border: none;
+            box-shadow: 0 2px 6px rgba(88, 106, 117, 0.4);
         }
 
         .tomorrow-label {
-            background: linear-gradient(135deg, #38A3A5 0%, #57C5B6 100%);
+            background: #586a75;
             color: white;
-            border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(56, 163, 165, 0.3);
+            border: none;
+            box-shadow: 0 2px 6px rgba(88, 106, 117, 0.4);
         }
 
         .meal {
@@ -594,7 +605,7 @@
         }
 
         .meal h3 {
-            color: #FF6B35;
+            color: #586a75;
             font-size: 1rem;
             margin-bottom: 0.25rem;
             font-weight: 600;
@@ -607,25 +618,25 @@
 
         /* Today's card - Strong emphasis per asilo */
         .day-card.today {
-            border: 4px solid #FF6B35;
-            background: linear-gradient(135deg, #FFE66D 0%, #FFB4B4 100%);
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
+            border: 4px solid #a0d9e8;
+            background: #a0d9e8;
+            box-shadow: 0 10px 30px rgba(160, 217, 232, 0.4);
         }
 
         .day-card.today h2 {
-            color: #FF6B35;
+            color: #4a5f6b;
             font-weight: 700;
             font-size: 1.4rem;
         }
 
         .day-card.tomorrow {
-            border: 3px solid #95E1D3;
-            background: linear-gradient(135deg, #E3FDFD 0%, #CBF1F5 100%);
+            border: 2px solid #f0f0f0;
+            background: white;
             opacity: 1;
         }
 
         .day-card.tomorrow h2 {
-            color: #38A3A5;
+            color: #2c3e50;
             font-weight: 600;
         }
 
@@ -642,25 +653,27 @@
         }
 
         .today-badge {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            background: #586a75;
+            color: white;
             font-size: 1rem;
             padding: 0.5rem 1.2rem;
             animation: pulse 2s ease-in-out infinite;
-            border: 2px solid white;
+            border: none;
         }
 
         .tomorrow-badge {
-            background: linear-gradient(135deg, #38A3A5 0%, #57C5B6 100%);
+            background: #586a75;
+            color: white;
             font-size: 0.85rem;
-            border: 2px solid white;
+            border: none;
         }
 
         @keyframes pulse {
             0%, 100% {
-                box-shadow: 0 3px 8px rgba(255, 107, 53, 0.4);
+                box-shadow: 0 3px 10px rgba(88, 106, 117, 0.4);
             }
             50% {
-                box-shadow: 0 5px 15px rgba(255, 107, 53, 0.7);
+                box-shadow: 0 5px 20px rgba(88, 106, 117, 0.7);
                 transform: scale(1.05);
             }
         }
@@ -670,8 +683,8 @@
             text-align: center;
             margin-top: 2rem;
             padding-top: 1rem;
-            border-top: 1px solid #eee;
-            color: #7f8c8d;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
             font-size: 0.9rem;
         }
 
@@ -865,19 +878,19 @@
         }
 
         .activity-week {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            margin-bottom: 2rem;
         }
 
         .activity-week-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid #eee;
-            color: #2c3e50;
+            border-bottom: 2px solid #e8eff3;
+            color: #4a5f6b;
             text-align: center;
         }
 
@@ -888,10 +901,11 @@
         }
 
         .activity-day-card {
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFE5E5 100%);
-            border-radius: 15px;
+            background: white;
+            border-radius: 20px;
             padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid #e8eff3;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -903,19 +917,19 @@
         }
 
         .activity-day-card h3 {
-            color: #FF6B35;
+            color: #586a75;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid #FFE5D9;
+            border-bottom: 2px solid #e8eff3;
             font-size: 1.2rem;
         }
 
         .activity-moment {
             margin-bottom: 0.75rem;
             padding: 0.5rem;
-            background: white;
+            background: #f8fafb;
             border-radius: 10px;
-            border-left: 4px solid #FF6B35;
+            border-left: 4px solid #a0d9e8;
         }
 
         .activity-moment-title {
@@ -931,13 +945,14 @@
         }
 
         .activity-day-card.today {
-            border: 3px solid #FF6B35;
-            box-shadow: 0 8px 16px rgba(255, 107, 53, 0.3);
+            background: #a0d9e8;
+            border: 3px solid #a0d9e8;
+            box-shadow: 0 8px 25px rgba(160, 217, 232, 0.4);
         }
 
         .activity-day-card.tomorrow {
-            border: 3px solid #57C5B6;
-            box-shadow: 0 8px 16px rgba(56, 163, 165, 0.3);
+            border: 2px solid #e8eff3;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
         /* Preferences section */
@@ -952,12 +967,12 @@
         }
 
         .preferences-header h2 {
-            color: #2c3e50;
+            color: #ffffff;
             margin-bottom: 0.5rem;
         }
 
         .preferences-header p {
-            color: #7f8c8d;
+            color: #b8c9d4;
             font-size: 0.95rem;
         }
 
@@ -965,21 +980,22 @@
             display: block;
             margin: 0 auto 2rem;
             padding: 0.8rem 2rem;
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
-            color: white;
+            background: #a0d9e8;
+            color: #4a5f6b;
             border: none;
             border-radius: 25px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 4px 15px rgba(160, 217, 232, 0.5);
             transition: all 0.3s ease;
         }
 
         @media (hover: hover) {
             .add-combination-btn:hover {
+                background: #8ecae6;
                 transform: translateY(-2px);
-                box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+                box-shadow: 0 6px 20px rgba(160, 217, 232, 0.6);
             }
         }
 
@@ -989,17 +1005,17 @@
         }
 
         .combination-card {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            border: 3px solid transparent;
+            border: 2px solid #e8eff3;
         }
 
         .combination-card.highlight {
-            border-color: #FFD700;
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+            border-color: #a0d9e8;
+            box-shadow: 0 10px 40px rgba(160, 217, 232, 0.4);
         }
 
         .combination-header {
@@ -1014,7 +1030,7 @@
         .combination-name {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: #4a5f6b;
         }
 
         .combination-actions {
@@ -1067,13 +1083,14 @@
         }
 
         .combination-section {
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFE5E5 100%);
+            background: #f8fafb;
             padding: 1rem;
             border-radius: 15px;
+            border: 1px solid #e8eff3;
         }
 
         .combination-section h4 {
-            color: #FF6B35;
+            color: #586a75;
             margin-bottom: 0.5rem;
             font-size: 1rem;
         }
@@ -1107,10 +1124,10 @@
         .modal-content {
             background: white;
             padding: 2rem;
-            border-radius: 20px;
+            border-radius: 25px;
             max-width: 500px;
             width: 100%;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
         }
 
         .modal-header {
@@ -1119,7 +1136,7 @@
         }
 
         .modal-header h3 {
-            color: #2c3e50;
+            color: #4a5f6b;
             margin-bottom: 0.5rem;
         }
 
@@ -1130,7 +1147,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #2c3e50;
+            color: #4a5f6b;
             font-weight: 600;
             font-size: 0.95rem;
         }
@@ -1148,7 +1165,8 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #FF6B35;
+            border-color: #a0d9e8;
+            box-shadow: 0 0 0 3px rgba(160, 217, 232, 0.2);
         }
 
         .modal-actions {
@@ -1169,8 +1187,8 @@
         }
 
         .modal-btn.save {
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
-            color: white;
+            background: #a0d9e8;
+            color: #4a5f6b;
         }
 
         .modal-btn.cancel {
@@ -1195,7 +1213,7 @@
         }
 
         .favorites-header h2 {
-            color: #2c3e50;
+            color: #ffffff;
             margin-bottom: 0.5rem;
         }
 
@@ -1205,22 +1223,52 @@
         }
 
         .favorite-combination {
-            background: white;
-            border: 4px solid #FFD700;
+            background: #ffffff;
+            border: 2px solid #e8eff3;
             border-radius: 25px;
             padding: 2rem;
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .favorite-delete-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .favorite-delete-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .favorite-delete-btn:active {
+            transform: scale(0.95);
         }
 
         .favorite-combination-header {
             text-align: center;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 3px solid #FFD700;
+            border-bottom: 2px solid #e8eff3;
         }
 
         .favorite-combination-header h3 {
-            color: #FF6B35;
+            color: #4a5f6b;
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
@@ -1234,8 +1282,8 @@
         }
 
         .combination-badge {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            color: white;
+            background: #a0d9e8;
+            color: #4a5f6b;
             padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -1248,7 +1296,7 @@
             gap: 0.5rem;
             margin: 1rem 0;
             padding: 0.5rem;
-            background: #f8f9fa;
+            background: #f8fafb;
             border-radius: 15px;
         }
 
@@ -1265,10 +1313,10 @@
         }
 
         .day-toggle-btn.active {
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
-            color: white;
-            border-color: #4CAF50;
-            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            background: #a0d9e8;
+            color: #4a5f6b;
+            border-color: #a0d9e8;
+            box-shadow: 0 4px 10px rgba(160, 217, 232, 0.4);
         }
 
         @media (hover: hover) {
@@ -1287,19 +1335,20 @@
 
         .favorite-menu-section,
         .favorite-activities-section {
-            background: linear-gradient(135deg, #FFF9E6 0%, #FFE5E5 100%);
+            background: #f8fafb;
             padding: 1.5rem;
             border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e8eff3;
+            box-shadow: none;
         }
 
         .favorite-section-title {
-            color: #FF6B35;
+            color: #586a75;
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid #FFE5D9;
+            border-bottom: 2px solid #e8eff3;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -1310,11 +1359,11 @@
             padding: 0.75rem;
             background: white;
             border-radius: 12px;
-            border-left: 4px solid #FF6B35;
+            border-left: 4px solid #a0d9e8;
         }
 
         .favorite-menu-items .meal h4 {
-            color: #FF6B35;
+            color: #586a75;
             font-size: 1rem;
             margin-bottom: 0.4rem;
         }
@@ -1329,12 +1378,12 @@
             padding: 0.75rem;
             background: white;
             border-radius: 12px;
-            border-left: 4px solid #4CAF50;
+            border-left: 4px solid #586a75;
         }
 
         .favorite-activities-list .activity-moment-title {
             font-weight: 600;
-            color: #4CAF50;
+            color: #586a75;
             font-size: 0.85rem;
             margin-bottom: 0.35rem;
         }
@@ -1363,13 +1412,65 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Favorites tabs */
+        .favorites-tabs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .favorites-tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+        }
+
+        .favorite-tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e0e8ed;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .favorite-tab-btn.active {
+            background: #ffffff;
+            color: #4a5f6b;
+            border-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (hover: hover) {
+            .favorite-tab-btn:not(.active):hover {
+                background: rgba(255, 255, 255, 0.2);
+                border-color: rgba(255, 255, 255, 0.5);
+                transform: translateY(-2px);
+            }
+        }
+
+        .favorites-tab-content {
+            display: none;
+        }
+
+        .favorites-tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>L'asilo a portata di mano</h1>
-        </header>
+        <header></header>
         
         <div class="controls">
             <button class="btn btn-primary" id="btn-install" style="display: none;">📲 Installa App</button>
@@ -1377,10 +1478,9 @@
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-tab" onclick="switchTab('favorites')">⭐ I Miei Preferiti</button>
+            <button class="nav-tab" onclick="switchTab('favorites')">⭐ Preferiti</button>
             <button class="nav-tab active" onclick="switchTab('menu')">📋 Menu</button>
             <button class="nav-tab" onclick="switchTab('activities')">🎨 Attività</button>
-            <button class="nav-tab" onclick="switchTab('preferences')">⚙️ Preferenze</button>
         </div>
         
         <!-- MENU SECTION -->
@@ -1448,32 +1548,13 @@
         <!-- FAVORITES SECTION -->
         <div id="favorites-section" class="hidden">
             <div class="favorites-container">
-                <div class="favorites-header">
-                    <h2>⭐ I tuoi cuccioli</h2>
-                </div>
+                
                 <div id="favorites-content" class="favorites-grid">
                     <!-- Favorites will be generated by JavaScript -->
                 </div>
             </div>
         </div>
 
-        <!-- PREFERENCES SECTION -->
-        <div id="preferences-section" class="hidden">
-            <div class="preferences-container">
-                <div class="preferences-header">
-                    <h2>⚙️ Gestisci i tuoi cuccioli</h2>
-                    <p>Aggiungi un cucciolo personalizzando menu e attività per un accesso rapido</p>
-                </div>
-                
-                <button class="add-combination-btn" onclick="openCombinationModal()">
-                    ➕ Aggiungi cucciolo
-                </button>
-
-                <div id="combinations-list" class="combinations-list">
-                    <!-- Combinations will be generated by JavaScript -->
-                </div>
-            </div>
-        </div>
         
         <footer>
             <p>💛 Con amore per i nostri cuccioli</p>
@@ -1523,8 +1604,26 @@
 
     <script>
         // *** CONFIGURAZIONE DATA DI INIZIO ***
-        // Specificare qui il lunedì della prima settimana nel formato YYYY-MM-DD
-        const WEEK_1_MONDAY = '2025-10-06';
+        // Caricata da week-config.txt o default
+        let WEEK_1_MONDAY = '2025-10-06'; // Default fallback
+        
+        // Carica la configurazione dal file week-config.txt
+        async function loadWeekConfig() {
+            try {
+                const response = await fetch('week-config.txt');
+                if (response.ok) {
+                    const text = await response.text();
+                    const date = text.trim();
+                    // Valida il formato YYYY-MM-DD
+                    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                        WEEK_1_MONDAY = date;
+                        console.log('Configurazione settimana caricata:', WEEK_1_MONDAY);
+                    }
+                }
+            } catch (error) {
+                console.log('Usa configurazione default:', WEEK_1_MONDAY);
+            }
+        }
         
         // Current selections
         let currentMenuType = 'nido';
@@ -2246,13 +2345,11 @@
             const favoritesSection = document.getElementById('favorites-section');
             const menuSection = document.getElementById('menu-section');
             const activitiesSection = document.getElementById('activities-section');
-            const preferencesSection = document.getElementById('preferences-section');
             
             // Hide all sections
             favoritesSection.classList.add('hidden');
             menuSection.classList.add('hidden');
             activitiesSection.classList.add('hidden');
-            preferencesSection.classList.add('hidden');
             
             // Show selected section
             if (tab === 'favorites') {
@@ -2263,9 +2360,6 @@
             } else if (tab === 'activities') {
                 activitiesSection.classList.remove('hidden');
                 displayActivities();
-            } else if (tab === 'preferences') {
-                preferencesSection.classList.remove('hidden');
-                displayPreferences();
             }
         }
 
@@ -2416,7 +2510,10 @@
         }
 
         // Handle combination form submit
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Carica configurazione settimana all'avvio
+            await loadWeekConfig();
+            
             const form = document.getElementById('combination-form');
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -2448,7 +2545,6 @@
                 
                 saveCombinations();
                 closeCombinationModal();
-                displayPreferences();
                 
                 // Update favorites if visible
                 if (currentTab === 'favorites') {
@@ -2467,15 +2563,12 @@
 
         // Delete combination
         function deleteCombination(combinationId) {
-            if (confirm('Sei sicuro di voler eliminare questa combinazione?')) {
-                combinations = combinations.filter(c => c.id !== combinationId);
-                saveCombinations();
-                displayPreferences();
-                
-                // Update favorites if visible
-                if (currentTab === 'favorites') {
-                    displayFavorites();
-                }
+            combinations = combinations.filter(c => c.id !== combinationId);
+            saveCombinations();
+            
+            // Update favorites if visible
+            if (currentTab === 'favorites') {
+                displayFavorites();
             }
         }
 
@@ -2486,7 +2579,6 @@
                 // Swap with previous
                 [combinations[index - 1], combinations[index]] = [combinations[index], combinations[index - 1]];
                 saveCombinations();
-                displayPreferences();
                 
                 // Update favorites if visible
                 if (currentTab === 'favorites') {
@@ -2502,7 +2594,6 @@
                 // Swap with next
                 [combinations[index], combinations[index + 1]] = [combinations[index + 1], combinations[index]];
                 saveCombinations();
-                displayPreferences();
                 
                 // Update favorites if visible
                 if (currentTab === 'favorites') {
@@ -2511,64 +2602,6 @@
             }
         }
 
-        // Display preferences (combinations list)
-        function displayPreferences() {
-            const container = document.getElementById('combinations-list');
-            container.innerHTML = '';
-            
-            if (combinations.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #999; padding: 2rem;">Nessuna combinazione salvata. Clicca sul pulsante sopra per aggiungerne una.</p>';
-                return;
-            }
-            
-            // Labels mapping
-            const menuLabels = {
-                'nido': '👶 Nido',
-                'infanzia': '🎓 Infanzia'
-            };
-            
-            const activityLabels = {
-                'nido': '👶 Nido',
-                'primavera': '🌸 Primavera',
-                'infanzia1': '🎓 Infanzia 1',
-                'infanzia2': '🎓 Infanzia 2'
-            };
-            
-            combinations.forEach((combination, index) => {
-                const card = document.createElement('div');
-                card.className = 'combination-card';
-                
-                // Controlli ordinamento
-                const isFirst = index === 0;
-                const isLast = index === combinations.length - 1;
-                
-                card.innerHTML = `
-                    <div class="combination-header">
-                        <div class="combination-name">${combination.name}</div>
-                        <div class="combination-actions">
-                            <div class="order-controls">
-                                <button class="action-btn move" onclick="moveCombinationUp('${combination.id}')" ${isFirst ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>⬆️</button>
-                                <button class="action-btn move" onclick="moveCombinationDown('${combination.id}')" ${isLast ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>⬇️</button>
-                            </div>
-                            <button class="action-btn edit" onclick="openCombinationModal('${combination.id}')">✏️ Modifica</button>
-                            <button class="action-btn delete" onclick="deleteCombination('${combination.id}')">🗑️ Elimina</button>
-                        </div>
-                    </div>
-                    <div class="combination-content">
-                        <div class="combination-section">
-                            <h4>📋 Menu</h4>
-                            <p>${menuLabels[combination.menuType]}</p>
-                        </div>
-                        <div class="combination-section">
-                            <h4>🎨 Attività</h4>
-                            <p>${activityLabels[combination.activityGroup]}</p>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(card);
-            });
-        }
 
         // Display favorites (combined daily view of menu and activities)
         function displayFavorites() {
@@ -2578,9 +2611,8 @@
             if (combinations.length === 0) {
                 container.innerHTML = `
                     <div style="text-align: center; padding: 3rem;">
-                        <p style="color: #999; font-size: 1.1rem; margin-bottom: 1rem;">Non hai ancora salvato nessuna combinazione</p>
-                        <button class="btn btn-primary" onclick="switchTab('preferences')" style="display: inline-block;">
-                            ⚙️ Vai alle Preferenze
+                        <button class="add-combination-btn" onclick="openCombinationModal()" style="display: inline-block;">
+                            ➕ Aggiungi cucciolo
                         </button>
                     </div>
                 `;
@@ -2590,23 +2622,30 @@
             const today = new Date();
             const currentDay = getCurrentDay(today);
             
-            // Labels mapping
-            const menuLabels = {
-                'nido': '👶 Nido',
-                'infanzia': '🎓 Infanzia'
-            };
+            // Create tabs container
+            const tabsContainer = document.createElement('div');
+            tabsContainer.className = 'favorites-tabs-container';
             
-            const activityLabels = {
-                'nido': '👶 Nido',
-                'primavera': '🌸 Primavera',
-                'infanzia1': '🎓 Infanzia 1',
-                'infanzia2': '🎓 Infanzia 2'
-            };
+            // Create tabs bar
+            const tabsBar = document.createElement('div');
+            tabsBar.className = 'favorites-tabs';
             
+            // Create tabs
             combinations.forEach((combination, index) => {
-                const combinationCard = document.createElement('div');
-                combinationCard.className = 'favorite-combination';
-                combinationCard.id = `favorite-${combination.id}`;
+                const tabBtn = document.createElement('button');
+                tabBtn.className = `favorite-tab-btn ${index === 0 ? 'active' : ''}`;
+                tabBtn.textContent = `⭐ ${combination.name}`;
+                tabBtn.onclick = () => switchFavoriteTab(combination.id);
+                tabsBar.appendChild(tabBtn);
+            });
+            
+            tabsContainer.appendChild(tabsBar);
+            
+            // Create tab contents
+            combinations.forEach((combination, index) => {
+                const tabContent = document.createElement('div');
+                tabContent.className = `favorites-tab-content ${index === 0 ? 'active' : ''}`;
+                tabContent.id = `favorite-tab-${combination.id}`;
                 
                 // Determine if toggle should be shown (only Monday-Friday)
                 const dayIndex = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì'].indexOf(currentDay);
@@ -2624,20 +2663,55 @@
                     </div>
                 ` : '';
                 
-                combinationCard.innerHTML = `
-                    <div class="favorite-combination-header">
-                        <h3>⭐ ${combination.name}</h3>
-                    </div>
-                    ${toggleHTML}
-                    <div id="day-content-${combination.id}">
-                        <!-- Content will be loaded here -->
+                tabContent.innerHTML = `
+                    <div class="favorite-combination">
+                        <button class="favorite-delete-btn" onclick="deleteCombination('${combination.id}')" title="Elimina">×</button>
+                        ${toggleHTML}
+                        <div id="day-content-${combination.id}">
+                            <!-- Content will be loaded here -->
+                        </div>
                     </div>
                 `;
                 
-                container.appendChild(combinationCard);
-                
-                // Load today's content by default
+                tabsContainer.appendChild(tabContent);
+            });
+            
+            container.appendChild(tabsContainer);
+            
+            // Add button at the end
+            const addButtonAtEnd = document.createElement('div');
+            addButtonAtEnd.style.cssText = 'text-align: center; margin-top: 2rem;';
+            addButtonAtEnd.innerHTML = '<button class="add-combination-btn" onclick="openCombinationModal()">➕ Aggiungi cucciolo</button>';
+            container.appendChild(addButtonAtEnd);
+            
+            // Load content for all favorites
+            combinations.forEach(combination => {
                 loadFavoriteDayContent(combination.id, 'today');
+            });
+        }
+
+        // Switch between favorite tabs
+        function switchFavoriteTab(combinationId) {
+            // Update tab buttons
+            const tabButtons = document.querySelectorAll('.favorite-tab-btn');
+            const tabContents = document.querySelectorAll('.favorites-tab-content');
+            
+            tabButtons.forEach((btn, index) => {
+                const combination = combinations[index];
+                if (combination && combination.id === combinationId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update tab contents
+            tabContents.forEach(content => {
+                if (content.id === `favorite-tab-${combinationId}`) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
             });
         }
 
@@ -2737,9 +2811,6 @@
                 // Se è sabato, mostra solo attività (senza menu)
                 if (displayDay === 'Sabato') {
                     contentDiv.innerHTML = `
-                        <div style="text-align: center; margin: 1rem 0;">
-                            <span class="combination-badge">📅 ${dayLabel}</span>
-                        </div>
                         <div class="favorite-activities-section" style="max-width: 800px; margin: 0 auto;">
                             <div class="favorite-section-title">
                                 <span>🎨 Attività del Giorno</span>
@@ -2750,9 +2821,6 @@
                 } else {
                     // Altri giorni: mostra menu e attività
                     contentDiv.innerHTML = `
-                        <div style="text-align: center; margin: 1rem 0;">
-                            <span class="combination-badge">📅 ${dayLabel}</span>
-                        </div>
                         <div class="favorite-day-view">
                             <div class="favorite-menu-section">
                                 <div class="favorite-section-title">
@@ -2895,6 +2963,7 @@
         
         // PWA Install Prompt Handler
         let deferredPrompt;
+        let hideButtonTimeout;
         const installButton = document.getElementById('btn-install');
         
         // Intercetta l'evento beforeinstallprompt
@@ -2906,6 +2975,12 @@
             // Mostra il pulsante di installazione
             installButton.style.display = 'block';
             console.log('Prompt di installazione catturato');
+            
+            // Nascondi il button automaticamente dopo 15 secondi
+            hideButtonTimeout = setTimeout(() => {
+                installButton.style.display = 'none';
+                console.log('Button installa nascosto dopo 15 secondi');
+            }, 15000);
         });
         
         // Gestisci il click sul pulsante di installazione
@@ -2913,6 +2988,11 @@
             if (!deferredPrompt) {
                 console.log('Nessun prompt di installazione disponibile');
                 return;
+            }
+            
+            // Cancella il timeout se l'utente clicca prima dei 15 secondi
+            if (hideButtonTimeout) {
+                clearTimeout(hideButtonTimeout);
             }
             
             // Mostra il prompt di installazione
@@ -2937,6 +3017,9 @@
         // Nascondi il pulsante se l'app è già installata
         window.addEventListener('appinstalled', () => {
             console.log('PWA installata con successo!');
+            if (hideButtonTimeout) {
+                clearTimeout(hideButtonTimeout);
+            }
             installButton.style.display = 'none';
             deferredPrompt = null;
         });

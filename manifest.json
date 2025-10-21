@@ -1,6 +1,6 @@
 {
-  "name": "Lunch Buddies - Menu e Attività",
-  "short_name": "Lunch Buddies",
+  "name": "L'Asilo - Menu e Attività",
+  "short_name": "L'Asilo",
   "description": "Consulta il menu settimanale e le attività giornaliere dell'asilo con facilità",
   "start_url": "./index.html",
   "display": "standalone",
