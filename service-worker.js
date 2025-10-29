@@ -1,6 +1,5 @@
 const CACHE_NAME = 'menu-asilo-v9';
 const urlsToCache = [
-  './manifest.json',
   './icon-192.svg',
   './icon-512.svg'
 ];
