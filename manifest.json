@@ -1,7 +1,7 @@
 {
-  "name": "L'Asilo - Menu e Attività",
-  "short_name": "L'Asilo",
-  "description": "Consulta il menu settimanale e le attività giornaliere dell'asilo con facilità",
+  "name": "ParentLoop",
+  "short_name": "ParentLoop",
+  "description": "Consulta il menu e le attività giornaliere dell'asilo con facilità",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#FFF9E6",
