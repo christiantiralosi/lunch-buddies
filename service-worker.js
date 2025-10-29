@@ -1,8 +1,5 @@
 const CACHE_NAME = 'menu-asilo-v9';
-const urlsToCache = [
-  './icon-192.svg',
-  './icon-512.svg'
-];
+const urlsToCache = [];
 
 // Installazione del Service Worker
 self.addEventListener('install', (event) => {
