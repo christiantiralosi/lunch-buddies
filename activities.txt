@@ -4,33 +4,33 @@
 # giorno: 1=Lunedì, 2=Martedì, 3=Mercoledì, 4=Giovedì, 5=Venerdì, 6=Sabato
 
 # NIDO
-nido|1|Attività sensoriale con colori e materiali morbidi|Canzoncine, letture animate e giochi liberi
-nido|2|Manipolazione di materiali naturali (foglie, stoffe, acqua)|Gioco simbolico con cucina e bambole
-nido|3|Attività motoria nel giardino e percorsi psicomotori|Costruzioni morbide e puzzle tattili
-nido|4|Attività grafico-pittorica con dita e spugne|Giochi in cortile e bolle di sapone
-nido|5|Lettura animata con burattini e drammatizzazione|Gioco libero, canzoncine e saluti settimanali
-nido|6|Gioco libero in giardino con materiali naturali|Attività relax e momento di condivisione con le famiglie
+nido|1|-|-
+nido|2|-|-
+nido|3|-|-
+nido|4|-|-
+nido|5|-|-
+nido|6|-|-
 
 # PRIMAVERA
-primavera|1|Esplorazione tattile e laboratorio creativo con paste modellabili|Giochi di ruolo (parrucchiere, dottore, supermercato)
-primavera|2|Laboratorio artistico con tempere e collage|Giochi all'aperto e attività con tricicli
-primavera|3|Attività motoria e musicale con strumenti ritmici|Costruzioni creative con blocchi grandi
-primavera|4|Esperimenti con acqua, sabbia e travasi|Letture illustrate e racconti interattivi
-primavera|5|Attività di pregrafismo (tracciati e forme)|Gioco libero in giardino e preparazione weekend
-primavera|6|Laboratorio creativo speciale del sabato|Giochi all'aperto e accoglienza genitori
+primavera|1|Atelier Arte|Il Giocabimbi
+primavera|2|Laboratorio La Didattica Giocata|Il Giocabimbi
+primavera|3|Laboratorio Animazione Musicale|Il Giocabimbi
+primavera|4|Laboratorio Narrazione Animata|Il Giocabimbi
+primavera|5|Atelier manipolazione creativa|Il Giocabimbi
+primavera|6|Il Giocabimbi|-
 
 # INFANZIA 1
-infanzia1|1|Attività di pregrafismo, riconoscimento colori e forme|Laboratorio creativo con materiali di riciclo
-infanzia1|2|Educazione motoria in palestra (percorsi e giochi di squadra)|Giochi di società e memory
-infanzia1|3|Attività linguistica con storie, rime e filastrocche|Gioco strutturato all'aperto
-infanzia1|4|Laboratorio scientifico (esperimenti con natura e oggetti)|Attività musicale con canti e balli
-infanzia1|5|Attività logico-matematica (conteggio, sequenze, puzzle)|Giochi liberi e preparazione per il weekend
-infanzia1|6|Atelier artistico e laboratorio manuale|Giochi di gruppo e momento con le famiglie
+infanzia1|1|-|-
+infanzia1|2|-|-
+infanzia1|3|-|-
+infanzia1|4|-|-
+infanzia1|5|-|-
+infanzia1|6|-|-
 
 # INFANZIA 2
-infanzia2|1|Prerequisiti della scrittura e riconoscimento lettere|Progetti creativi per preparazione alla primaria
-infanzia2|2|Educazione fisica strutturata (regole, coordinazione)|Giochi da tavolo cooperativi e strategici
-infanzia2|3|Attività di letto-scrittura (suoni, sillabe, parole semplici)|Laboratorio artistico con tecniche miste
-infanzia2|4|Esperimenti scientifici e osservazioni guidate|Attività musicale (ritmo, melodia, coreografie)
-infanzia2|5|Precalcolo e logica (numeri fino a 10, insiemi)|Attività autonome e riflessioni sulla settimana
-infanzia2|6|Progetti speciali e attività di gruppo|Giochi cooperativi e incontro con le famiglie
+infanzia2|1|Laboratorio Il Raccontino + Rappresentazione grafica|Laboratorio Religione
+infanzia2|2|Laboratorio Ditattica Giocata Happy English|Laboratorio 1 2 3 (propedeutico)
+infanzia2|3|Atelier Arte e Immagine|Laboratorio - Corpo e movimento
+infanzia2|4|Laboratorio Didattica Giocata A B C (propedeutico)|Laboratorio STEM Scienze e Tecnologie (propedeutico)
+infanzia2|5|Atelier Arte e Immagine|Laboratorio Cittadinanza attiva
+infanzia2|6|Il Giocambimbi|-
